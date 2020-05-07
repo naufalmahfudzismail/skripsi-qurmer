@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1081268813373",
+    "firebase_url": "https://qurmer-1587779252098.firebaseio.com",
+    "project_id": "qurmer-1587779252098",
+    "storage_bucket": "qurmer-1587779252098.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081268813373:android:a3b5732462ac8164893454",
+        "android_client_info": {
+          "package_name": "id.dev.qurmer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081268813373-cnujc3c3lhn6fsu123sv3g0a7esvn2tp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.dev.qurmer",
+            "certificate_hash": "395edde2ea48c2f7fa5993c611559259f09f4e3d"
+          }
+        },
+        {
+          "client_id": "1081268813373-hhcj3jvjto721uu4mchqnpu4tfkkqvd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmg8jg9t_jYzeQBij5VbacM02PRElrS4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081268813373-hhcj3jvjto721uu4mchqnpu4tfkkqvd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
