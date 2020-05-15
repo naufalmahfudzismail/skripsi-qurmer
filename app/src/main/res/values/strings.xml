@@ -3,4 +3,22 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="oboard_content_first">Kamu dapat mengatur waktu,\n
+        membuat target hafalan Al-Quran\n
+        Tersedia Alarm sebagai pengingat\n
+        kamu</string>
+    <string name="onbord_title_first">Buat Target Hafalan</string>
+
+    <string name="oboard_content_two">Kamu bisa ikut tantangan\n
+        hafalan. Tersedia Level dan poin\n
+        yang membuat kamu betah\n
+        untuk terus mengingat Hafalan</string>
+    <string name="onbord_title_two">Tantangan Hafalan\n
+        Al-Quran</string>
+
+    <string name="oboard_content_three">Kamu bisa rekam hafalan \n
+        dan cek hafalan mu, dan\n
+        dapatkan poinnya!</string>
+    <string name="onbord_title_three">Setoran Hafalan\n
+        Al-Quran</string>
 </resources>

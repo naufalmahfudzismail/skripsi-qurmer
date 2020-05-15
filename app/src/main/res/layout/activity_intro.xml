@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".intro.IntroActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_bg_intro"
+        android:layout_width="match_parent"
+        android:layout_height="372dp"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:text="Masuk"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/ic_button_bg_come_in"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:textSize="16sp"
+        android:textColor="@color/colorMainTheme"
+        android:text="Daftar"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/ic_button_bg_register"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
