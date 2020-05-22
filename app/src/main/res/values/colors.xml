@@ -6,4 +6,7 @@
     <color name="colorMainTheme">#74A60A</color>
     <color name="black">#000000</color>
     <color name="semi_black">#3C3C3C</color>
+    <color name="bg_nav_selected">#74A60A</color>
+    <color name="bg_audio_player">#E9FFBA</color>
+    <color name="btn_grey">#707070</color>
 </resources>

@@ -1,15 +1,27 @@
 package id.dev.qurmer.config
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import id.dev.qurmer.R
 import java.io.Serializable
 
 abstract class BaseActivity : AppCompatActivity() {
+
+
+    fun setDownloadDone() = SessionManager.getInstance(this).setDownload()
+    fun setIntroDone() = SessionManager.getInstance(this).setIntro()
+    fun setToken(token : String) = SessionManager.getInstance(this).saveToken(token)
+
+    fun loggedIn(): Boolean = SessionManager.getInstance(this).isLoggedIn
+    fun getDownloadStatus() = SessionManager.getInstance(this).getDownloadStatus()
+    fun getIntroStatus() = SessionManager.getInstance(this).getIntro()
+    fun getTokenWithBearer(): String = "Bearer ${SessionManager.getInstance(this).getToken()}"
 
     companion object {
         const val NOTIFICATION_CHANNEL_ID = "10001"
@@ -34,6 +46,22 @@ abstract class BaseActivity : AppCompatActivity() {
         setResult(resultCode, intent)
         finish()
     }
+
+    lateinit var dialogLoading: Dialog
+
+    fun viewLoading() {
+        dialogLoading = Dialog(this)
+        dialogLoading.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialogLoading.setCancelable(false)
+        dialogLoading.setContentView(R.layout.default_loading)
+        dialogLoading.show()
+
+    }
+
+    fun hideLoading() {
+        dialogLoading.dismiss()
+    }
+
 
     override fun finish() {
         super.finish()

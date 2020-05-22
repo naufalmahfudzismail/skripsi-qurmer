@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".intro.RegisterActivity">
+    tools:context=".intro.register.RegisterActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,9 +13,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_bg_header_login" />
+            android:layout_height="200dp"
+            android:src="@drawable/ic_bg_header_regis" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/ll_main_register"

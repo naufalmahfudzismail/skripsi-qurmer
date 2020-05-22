@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
-import id.dev.qurmer.BaseActivity
 import id.dev.qurmer.MainActivity
 import id.dev.qurmer.R
-import id.dev.qurmer.utils.SessionManager
+import id.dev.qurmer.config.BaseActivity
+import id.dev.qurmer.config.SessionManager
 import kotlinx.android.synthetic.main.activity_on_board.*
 
 class OnBoardActivity : BaseActivity() {
@@ -44,7 +44,7 @@ class OnBoardActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (SessionManager.getInstance(this).getIntro() == "done") {
+        if (getIntroStatus()) {
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)

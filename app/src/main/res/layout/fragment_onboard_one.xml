@@ -6,10 +6,13 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:src="@drawable/ic_on_boarding_first"
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="400dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="30dp"
         android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="24sp"

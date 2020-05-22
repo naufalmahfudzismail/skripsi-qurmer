@@ -16,7 +16,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-
+        android:id="@+id/btn_login"
         android:textSize="16sp"
         android:textColor="@color/white"
         android:text="Masuk"
@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_register"
         android:textSize="16sp"
         android:textColor="@color/colorMainTheme"
         android:text="Daftar"

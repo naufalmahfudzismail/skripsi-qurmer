@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".intro.LoginActivity">
+    tools:context=".intro.login.LoginActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
-        android:layout_height="372dp"
-        android:scaleType="fitXY"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_bg_header_login" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -23,30 +24,33 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="E-mail atau Username"
+            android:text="E-mail"
             android:textColor="#533939"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:hint="Email atau Username"
-            android:padding="12dp"
+            android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/ic_bg_editext_login" />
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_bg_editext_login"
+            android:hint="Email"
+            android:padding="15dp" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="Password"
             android:textColor="#533939"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_password_container"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:boxBackgroundMode="outline"
@@ -59,19 +63,42 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/ic_bg_editext_login"
                 android:inputType="textPassword"
-                android:padding="12dp" />
+                android:padding="15dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:text="Masuk"
+            android:textStyle="bold"
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/ic_button_bg_come_in"
+            android:text="Masuk"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+        <FrameLayout
+            android:id="@+id/btn_gmail"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:id="@+id/btn_google"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_icon_gmail"
+                android:background="@drawable/ic_gmail_bg" />
+
+        </FrameLayout>
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
