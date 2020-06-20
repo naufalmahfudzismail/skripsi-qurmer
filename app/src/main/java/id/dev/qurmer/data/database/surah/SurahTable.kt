@@ -19,6 +19,8 @@ class SurahTable (
     @ColumnInfo(name = "surahAudioId")
     var surahAudioId: Int? = null,
     @ColumnInfo(name = "surahAudioName")
-    var surahAudioName: String? = null
+    var surahAudioName: String? = null,
+    @ColumnInfo(name = "duration")
+    var duration : Int? = null
 ) : Serializable {
 }

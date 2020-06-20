@@ -8,6 +8,7 @@ import id.dev.qurmer.MainActivity
 import id.dev.qurmer.R
 import id.dev.qurmer.config.BaseActivity
 import id.dev.qurmer.config.SessionManager
+import id.dev.qurmer.intro.IntroActivity
 import kotlinx.android.synthetic.main.activity_on_board.*
 
 class OnBoardActivity : BaseActivity() {
@@ -32,7 +33,7 @@ class OnBoardActivity : BaseActivity() {
 
             if (fragment_on_board_pager.currentItem == 2) {
                 SessionManager.getInstance(this).setIntro()
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, IntroActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 this.finish()
@@ -45,7 +46,7 @@ class OnBoardActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
         if (getIntroStatus()) {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, IntroActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             this.finish()

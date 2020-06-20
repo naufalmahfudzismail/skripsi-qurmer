@@ -222,6 +222,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:text="Pekerjaan"
+                android:textColor="#533939"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_work"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/ic_bg_editext_login"
+                android:hint="Pekerjaan (bisa diisi mahasiswa atau pelajar)"
+                android:padding="12dp" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Jenis Kelamin"
                 android:textColor="#533939"
                 android:textSize="18sp"
@@ -255,7 +275,7 @@
             </RadioGroup>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_regiter"
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -264,9 +284,6 @@
                 android:text="Daftar"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
-
-
-
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

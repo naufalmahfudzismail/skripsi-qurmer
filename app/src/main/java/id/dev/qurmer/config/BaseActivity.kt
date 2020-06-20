@@ -1,15 +1,26 @@
 package id.dev.qurmer.config
 
+import android.annotation.SuppressLint
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import id.dev.qurmer.R
+import id.dev.qurmer.data.database.surah.SurahTable
+import id.dev.qurmer.data.repository.APIRepository
+import id.dev.qurmer.utils.fingerprint.operation.OperationHash
+import java.io.BufferedInputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.io.Serializable
+import java.net.URL
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -47,7 +58,7 @@ abstract class BaseActivity : AppCompatActivity() {
         finish()
     }
 
-    lateinit var dialogLoading: Dialog
+    private lateinit var dialogLoading: Dialog
 
     fun viewLoading() {
         dialogLoading = Dialog(this)
@@ -131,4 +142,127 @@ abstract class BaseActivity : AppCompatActivity() {
             return@forEach
         }
     }
+
+
+
+    /*fun  downloadAudio(fileName : String){
+        val urlFile = "${APIRepository.BASE_URL}download-audio/$fileName"
+        DownloadFileFromURL().execute(urlFile)
+    }
+
+    @Suppress("DEPRECATION")
+    @SuppressLint("StaticFieldLeak")
+    inner class DownloadFileFromURL : AsyncTask<String, String, String>() {
+
+        var pd: ProgressDialog? = null
+        var pathFolder = ""
+        var pathFile = ""
+        var indexDownload: Int = 0
+        var totalIndex: Int = audioSurahList.size
+
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            pd = ProgressDialog(this@IntroActivity)
+            pd!!.setMessage("Mengunduh $indexDownload / $totalIndex")
+            pd!!.setTitle("Harap tunggu...")
+            pd!!.max = 100
+            pd!!.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+            pd!!.setCancelable(false)
+            pd!!.show()
+        }
+
+
+        override fun onProgressUpdate(vararg progress: String) {
+            // setting progress percentage
+            pd!!.progress = Integer.parseInt(progress[0])
+            pd!!.setMessage("Mengunduh $indexDownload / $totalIndex")
+        }
+
+        override fun onPostExecute(file_url: String) {
+            if (pd != null) {
+                pd!!.dismiss()
+                surahViewModel.allSurah.observe(this@IntroActivity, Observer { it ->
+                    it.forEach { surah ->
+                        OperationHash.insert(
+                            hashViewModel,
+                            surah.surahPath.toString(),
+                            surah.surahId!!
+                        )
+                    }
+
+                })
+                setDownloadDone()
+            }
+
+        }
+
+        override fun doInBackground(vararg params: String?): String? {
+            var count: Int = 0
+            try {
+                params[0]?.forEachIndexed { index, it ->
+                    pathFolder =
+                        applicationContext.filesDir.toString() + "/qurmer/audio"
+                    pathFile = "$pathFolder/${114 - index}.mp3"
+
+                    val futureStudioIconFile = File(pathFolder)
+                    if (!futureStudioIconFile.exists()) {
+                        futureStudioIconFile.mkdirs()
+                    }
+
+                    val url = URL(it)
+                    val connection = url.openConnection()
+                    connection.connect()
+
+                    // this will be useful so that you can show a tipical 0-100%
+                    // progress bar
+                    val lengthOfFile = connection.contentLength
+
+                    // download the file
+                    val input = BufferedInputStream(url.openStream(), 8192)
+                    val output = FileOutputStream(pathFile)
+
+                    val audioData = audioSurahList[index]
+
+                    surahViewModel.insert(
+                        SurahTable(
+                            surahId = audioData.surah?.id,
+                            surahName = audioData.surah?.nama,
+                            surahPath = pathFile,
+                            surahAudioId = audioData.id,
+                            surahBadgeId = audioData.surah?.badgeId,
+                            surahAudioName = audioData.name
+                        )
+                    )
+
+
+                    val data = ByteArray(1024) //anybody know what 1024 means ?
+                    var total: Long = 0
+
+                    while ({ count = input.read(data);count }() != -1) {
+                        total += count.toLong()
+                        // publishing the progress....
+                        // After this onProgressUpdate will be called
+                        publishProgress("" + (total * 100 / lengthOfFile).toInt())
+                        // writing data to file
+                        output.write(data, 0, count)
+                    }
+
+                    indexDownload++
+                    // flushing output
+                    output.flush()
+
+                    // closing streams
+                    output.close()
+                    input.close()
+                }
+
+            } catch (e: Throwable) {
+                Log.e("Error: ", e.message.toString())
+            }
+
+            return pathFile
+        }
+
+    }*/
 }

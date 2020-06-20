@@ -4,10 +4,9 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import id.dev.qurmer.config.BaseActivity
-import id.dev.qurmer.data.GlobalData
 import id.dev.qurmer.data.GlobalData.FRAGMENT_STACK
 import id.dev.qurmer.home.HomeFragment
-import id.dev.qurmer.home.NotificationFragment
+import id.dev.qurmer.home.HistoryFragment
 import id.dev.qurmer.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,7 +23,20 @@ class MainActivity : BaseActivity() {
 
         nav_home.setOnNavigationItemSelectedListener {
             controlNavbarStack(it.itemId)
-            loadFragment(it.itemId)
+            //loadFragment(it.itemId)
+
+            when (it.itemId) {
+                R.id.profile_main -> {
+                    loadProfileFragment(savedInstanceState)
+                }
+                R.id.notification_main -> {
+                    loadHistoryFragment(savedInstanceState)
+                }
+                R.id.home_main -> {
+                    loadHomeFragment(savedInstanceState)
+
+                }
+            }
 
             true
         }
@@ -35,6 +47,62 @@ class MainActivity : BaseActivity() {
 
     }
 
+
+    private fun loadHomeFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    HomeFragment(),
+                    HomeFragment::class.java.simpleName
+                )
+                .commitAllowingStateLoss()
+        } else {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    HomeFragment(),
+                    HomeFragment::class.java.simpleName
+                ).commit()
+        }
+    }
+
+    private fun loadProfileFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    ProfileFragment(),
+                    ProfileFragment::class.java.simpleName
+                )
+                .commitAllowingStateLoss()
+        }
+    }
+
+    private fun loadHistoryFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    HistoryFragment(),
+                    HistoryFragment::class.java.simpleName
+                )
+                .commitAllowingStateLoss()
+        } else {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.fragment_container,
+                    HistoryFragment(),
+                    HistoryFragment::class.java.simpleName
+                ).commit()
+        }
+    }
+
     private fun loadFragment(itemId: Int) {
         val tag = itemId.toString()
         val fragment = supportFragmentManager.findFragmentByTag(tag) ?: when (itemId) {
@@ -42,8 +110,8 @@ class MainActivity : BaseActivity() {
                 HomeFragment.newInstance()
             }
 
-            R.id.notification_main ->{
-                NotificationFragment.newInstance()
+            R.id.notification_main -> {
+                HistoryFragment.newInstance()
             }
             R.id.profile_main -> {
                 ProfileFragment.newInstance()

@@ -7,17 +7,22 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import id.dev.qurmer.MainActivity
 import id.dev.qurmer.R
 import id.dev.qurmer.config.BaseActivity
 import id.dev.qurmer.data.database.ayat.AyatTable
 import id.dev.qurmer.data.database.ayat.AyatViewModel
+import id.dev.qurmer.data.database.hash.HashViewModel
 import id.dev.qurmer.data.database.surah.SurahTable
 import id.dev.qurmer.data.database.surah.SurahViewModel
 import id.dev.qurmer.data.model.IntroDataResponse
 import id.dev.qurmer.data.repository.APIRepository
 import id.dev.qurmer.intro.login.LoginActivity
 import id.dev.qurmer.intro.register.RegisterActivity
+import id.dev.qurmer.utils.fingerprint.operation.OperationHash
+import id.dev.qurmer.utils.fingerprint.operation.SearchMatch
 import kotlinx.android.synthetic.main.activity_intro.*
 import java.io.BufferedInputStream
 import java.io.File
@@ -29,7 +34,7 @@ class IntroActivity : BaseActivity(), IntroView {
 
     private lateinit var surahViewModel: SurahViewModel
     private lateinit var ayatViewModel: AyatViewModel
-
+    private lateinit var hashViewModel: HashViewModel
     private lateinit var introPresenter: IntroPresenter
 
     private val audioSurahList: MutableList<IntroDataResponse.Data.Audio> = mutableListOf()
@@ -47,18 +52,20 @@ class IntroActivity : BaseActivity(), IntroView {
 
         surahViewModel = ViewModelProviders.of(this).get(SurahViewModel::class.java)
         ayatViewModel = ViewModelProviders.of(this).get(AyatViewModel::class.java)
+        hashViewModel = ViewModelProviders.of(this@IntroActivity).get(HashViewModel::class.java)
 
         introPresenter = IntroPresenter(this, this)
         if (!getDownloadStatus()) introPresenter.getAudioSurah()
 
+
         btn_login.setOnClickListener {
-            if(getDownloadStatus()) startActivityWithIntent<LoginActivity>()
-            makeLongToast("Harap Tunggu")
+            if (getDownloadStatus()) startActivityWithIntent<LoginActivity>()
+            else makeLongToast("Harap Tunggu")
         }
 
         btn_register.setOnClickListener {
-            if(getDownloadStatus()) startActivityWithIntent<RegisterActivity>()
-            makeLongToast("Harap Tunggu")
+            if (getDownloadStatus()) startActivityWithIntent<RegisterActivity>()
+            else makeLongToast("Harap Tunggu")
         }
 
     }
@@ -91,6 +98,7 @@ class IntroActivity : BaseActivity(), IntroView {
         DownloadFileFromURL().execute(urlAudioList)
     }
 
+
     override fun startLoading() {
         viewLoading()
     }
@@ -111,10 +119,10 @@ class IntroActivity : BaseActivity(), IntroView {
     @Suppress("DEPRECATION")
     @SuppressLint("StaticFieldLeak")
     inner class DownloadFileFromURL : AsyncTask<List<String>, String, String>() {
+
         var pd: ProgressDialog? = null
         var pathFolder = ""
         var pathFile = ""
-
         var indexDownload: Int = 0
         var totalIndex: Int = audioSurahList.size
 
@@ -140,8 +148,19 @@ class IntroActivity : BaseActivity(), IntroView {
         override fun onPostExecute(file_url: String) {
             if (pd != null) {
                 pd!!.dismiss()
+                surahViewModel.allSurah.observe(this@IntroActivity, Observer { it ->
+                    it.forEach { surah ->
+                        OperationHash.insert(
+                            hashViewModel,
+                            surah.surahPath.toString(),
+                            surah.surahId!!
+                        )
+                    }
+
+                })
                 setDownloadDone()
             }
+
         }
 
         override fun doInBackground(vararg params: List<String>?): String {
@@ -168,7 +187,9 @@ class IntroActivity : BaseActivity(), IntroView {
                     // download the file
                     val input = BufferedInputStream(url.openStream(), 8192)
                     val output = FileOutputStream(pathFile)
+
                     val audioData = audioSurahList[index]
+
                     surahViewModel.insert(
                         SurahTable(
                             surahId = audioData.surah?.id,
@@ -179,6 +200,7 @@ class IntroActivity : BaseActivity(), IntroView {
                             surahAudioName = audioData.name
                         )
                     )
+
 
                     val data = ByteArray(1024) //anybody know what 1024 means ?
                     var total: Long = 0
@@ -208,6 +230,11 @@ class IntroActivity : BaseActivity(), IntroView {
             return pathFile
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(loggedIn()) startActivityClearPreviousActivity<MainActivity>()
     }
 
 

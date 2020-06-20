@@ -7,6 +7,8 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import id.dev.qurmer.data.database.ayat.AyatDao
 import id.dev.qurmer.data.database.ayat.AyatTable
+import id.dev.qurmer.data.database.hash.HashDao
+import id.dev.qurmer.data.database.hash.HashTable
 import id.dev.qurmer.data.database.surah.SurahDao
 import id.dev.qurmer.data.database.surah.SurahTable
 import id.dev.qurmer.data.database.user.UserDao
@@ -17,13 +19,14 @@ import kotlinx.coroutines.launch
 
 @Database(
     version = 1, exportSchema = false,
-    entities = [SurahTable::class, AyatTable::class, UserTable::class]
+    entities = [SurahTable::class, AyatTable::class, UserTable::class, HashTable::class]
 )
 abstract class QurmerDatabase : RoomDatabase() {
 
     abstract fun surahDao(): SurahDao
     abstract fun ayatDao(): AyatDao
     abstract fun userDao() : UserDao
+    abstract fun hashDao() : HashDao
 
     companion object {
 

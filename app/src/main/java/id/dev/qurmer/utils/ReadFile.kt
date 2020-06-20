@@ -1,39 +1,25 @@
 package id.dev.qurmer.utils
 
-import android.media.AudioFormat
+import android.annotation.SuppressLint
+import android.media.AudioTrack
 import android.media.MediaMetadataRetriever
 import id.dev.qurmer.utils.fingerprint.Fingerprint
 import java.io.File
 import java.io.IOException
-import java.io.InputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
+import java.time.Duration
+
+
+
 
 
 class ReadFile {
-    var fingerprint: Fingerprint? = null
-    var Title: String? = null
-    var Album: String? = null
-    var Artist: String? = null
-    var audio_length = 0.0
+    var audioLength = 0.0
 
-    private fun getTabs(filename: String) {
-        val strings = filename.split("}}").toTypedArray()
-        if (strings.size < 3) {
-            Title = filename.replace(".wav", "")
-            Album = "Advertisement"
-            Artist = "Advertisement"
-            return
-        }
-        Title = strings[0]
-        Album = strings[1]
-        //remove .wav
-        val len = strings[2].length
-        Artist = strings[2].substring(0, len - 4)
-    }
 
     @Throws(Exception::class)
-    fun readFile(file: File) {
+    fun readFile(file: File, path: String): Fingerprint? {
         /*val stream: InputStream
         stream = try {
             AudioSystem.getAudioInputStream(file)
@@ -49,8 +35,9 @@ class ReadFile {
             throw Exception("SampleRate must be $SAMPLE_RATE!")
         }*/
 
+
         val stream = file.inputStream()
-        val len = getDuration(file).toInt()
+        val len = getDuration(path).toInt()
         val dataL = FloatArray(len)
         val dataR = FloatArray(len)
         val buf: ByteBuffer = ByteBuffer.allocate(4 * len)
@@ -66,7 +53,7 @@ class ReadFile {
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            return
+            return null
         }
 
         val data = FloatArray(len)
@@ -75,20 +62,21 @@ class ReadFile {
             data[index] = data[index] / 2
         }
 
-        audio_length = (len / SAMPLE_RATE).toDouble()
-        fingerprint = Fingerprint(data, SAMPLE_RATE.toFloat())
-        getTabs(file.name)
+        audioLength = (len / SAMPLE_RATE).toDouble()
+        return Fingerprint(data, SAMPLE_RATE.toFloat())
     }
 
-    private fun getDuration(file: File): Long {
+    @SuppressLint("InlinedApi")
+    private fun getDuration(path: String): Long {
         val mediaMetadataRetriever = MediaMetadataRetriever()
-        mediaMetadataRetriever.setDataSource(file.absolutePath)
+        mediaMetadataRetriever.setDataSource(path)
         val durationStr =
             mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
         return durationStr.toLong()
     }
 
+
     companion object {
-        private const val SAMPLE_RATE = 8000
+        private const val SAMPLE_RATE = 44100
     }
 }

@@ -18,15 +18,11 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="0dp">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@drawable/btm_nav_shadow"/>
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/nav_home"
@@ -40,7 +36,7 @@
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/nav_menu" />
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

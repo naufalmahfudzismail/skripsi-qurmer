@@ -1,4 +1,6 @@
-package id.dev.qurmer.utils.fingerprint
+package id.dev.qurmer.utils.fingerprint.hash
+
+import id.dev.qurmer.utils.fingerprint.Fingerprint
 
 object Hash {
     fun hash(link: Fingerprint.Link): Int {

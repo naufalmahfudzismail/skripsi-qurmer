@@ -27,6 +27,7 @@ class SurahViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun surahPerBadge(badgeId: Int): LiveData<List<SurahTable>> = repository.selectPerBadge(badgeId)
+    fun getSurahById(surahId : Int) : LiveData<SurahTable> = repository.getSurahById(surahId)
 
     fun insert(surahTable: SurahTable) {
         Log.e("INSERT", surahTable.surahName.toString())

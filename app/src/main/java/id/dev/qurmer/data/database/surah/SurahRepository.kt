@@ -11,7 +11,7 @@ class SurahRepository(private val surahDao: SurahDao) {
     val all: LiveData<List<SurahTable>> = surahDao.getAll()
 
     fun selectPerBadge(badgeId : Int) : LiveData<List<SurahTable>> = surahDao.selectPerBadge(badgeId)
-
+    fun getSurahById(surahId : Int) : LiveData<SurahTable> = surahDao.getSurah(surahId)
 
     @WorkerThread
     fun insert(surah: SurahTable) = GlobalScope.launch(Dispatchers.IO){

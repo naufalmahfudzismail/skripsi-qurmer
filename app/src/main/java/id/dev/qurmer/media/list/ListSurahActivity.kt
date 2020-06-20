@@ -11,6 +11,7 @@ import id.dev.qurmer.config.BaseActivity
 import id.dev.qurmer.data.database.surah.SurahTable
 import id.dev.qurmer.data.database.surah.SurahViewModel
 import id.dev.qurmer.media.SurahPlayerActivity
+import id.dev.qurmer.memorize.MemorizeActivity
 import kotlinx.android.synthetic.main.activity_list_surah.*
 import java.util.*
 
@@ -24,12 +25,19 @@ class ListSurahActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_surah)
 
+        val type = intent.getIntExtra("type", 0)
+
         val surahViewModel = ViewModelProviders.of(this).get(SurahViewModel::class.java)
         surahViewModel.allSurah.observe(this, Observer {
 
+
             surahs.addAll(it)
             adapter = ListSurahAdapter(this, it) { surah ->
-                startActivityWithIntent<SurahPlayerActivity>("surah" to surah)
+                if (type == 1) {
+                    startActivityWithIntent<SurahPlayerActivity>("surah" to surah)
+                } else {
+                    startActivityWithIntent<MemorizeActivity>("surah" to surah)
+                }
             }
             rv_list_surat.layoutManager = LinearLayoutManager(this)
             rv_list_surat.itemAnimator = DefaultItemAnimator()

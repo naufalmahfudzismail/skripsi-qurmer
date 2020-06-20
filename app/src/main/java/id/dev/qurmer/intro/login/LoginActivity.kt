@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -14,16 +14,23 @@ import com.google.android.gms.common.api.ApiException
 import id.dev.qurmer.MainActivity
 import id.dev.qurmer.R
 import id.dev.qurmer.config.BaseActivity
+import id.dev.qurmer.data.database.hash.HashViewModel
+import id.dev.qurmer.data.database.surah.SurahViewModel
 import id.dev.qurmer.data.database.user.UserTable
 import id.dev.qurmer.data.database.user.UserViewModel
 import id.dev.qurmer.data.model.LoginResponse
+import id.dev.qurmer.utils.fingerprint.operation.OperationHash
+import id.dev.qurmer.utils.fingerprint.operation.SearchMatch
 import kotlinx.android.synthetic.main.activity_login.*
+import java.io.File
 
 class LoginActivity : BaseActivity(), LoginView {
 
 
     private lateinit var loginPresenter: LoginPresenter
     private lateinit var userViewModel: UserViewModel
+    private lateinit var surahViewModel: SurahViewModel
+    private lateinit var hashViewModel: HashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +41,56 @@ class LoginActivity : BaseActivity(), LoginView {
         )
         setContentView(R.layout.activity_login)
 
+
         loginPresenter = LoginPresenter(this, this)
         userViewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
+        surahViewModel = ViewModelProviders.of(this).get(SurahViewModel::class.java)
+        hashViewModel = ViewModelProviders.of(this).get(HashViewModel::class.java)
+
+        surahViewModel.allSurah.observe(this, Observer { it ->
+
+            //input file
+            val file = File(it[0].surahPath!!)
+            Log.e("SURAT", it[0].surahName.toString())
+
+            val hashs = OperationHash.getHashFromFingerPrint(file, it[0].surahPath!!)
+            val fingerprint = OperationHash.getFingerPrintAudio(file, it[0].surahPath!!)
+
+            Log.e("COUNT ARRAY", hashs.size.toString())
+
+            //target
+            hashViewModel.getHashByValue(hashs, it[0].surahId!!)
+                .observe(this, Observer { hash ->
+                    val result = StringBuilder()
+                    hash.forEach {
+                        result.append(it.surahId.toString() + ",")
+                    }
+                    Log.e("COUNT RESULT", hash.size.toString())
+                    Log.e("Result", result.toString())
+
+                    val search = SearchMatch()
+                    val match = search.findMatch(hash, fingerprint)
+                    if (match != null) {
+                        Log.e(
+                            "CONFIDENCE",
+                            ((hash.size.toDouble() / hashs.size.toDouble()) * 100).toString() + "%"
+                        )
+                        /* Log.e("RELATIVE_CONFIDENCE", search.relativeConfidence!!)
+                        Log.e("OFFSET", search.offset!!)
+                        Log.e("OFFSET_SECOND", search.offsetSecond!!)*/
+                        val audio = it.find { audio -> audio.surahId == match.idSong }
+                        Log.e("AUDIO", audio?.surahName.toString())
+                    } else {
+                        Log.e("NOT FOUND", "NOT FOUND")
+                    }
+                })
+
+        })
+
+
+        val email = intent.getStringExtra("email")
+        if (email != null) edt_email.setText(email)
+
 
         btn_login.setOnClickListener {
             doLogin()
@@ -91,19 +146,22 @@ class LoginActivity : BaseActivity(), LoginView {
         try {
             if (!result?.error!!) {
                 val token = result.data!!.token
+                Log.e("TOKEN", token.toString())
                 val user = result.data!!.user
                 setToken(token.toString())
-                userViewModel.insert(UserTable(
-                    nama = user?.nama,
-                    alamat = user?.alamat,
-                    idUser = user?.id,
-                    token = token,
-                    tanggalLahir = user?.tanggalLahir,
-                    email = user?.email,
-                    pekerjaan = user?.pekerjaan,
-                    gender = user?.gender,
-                    updatedAt = user?.updatedAt
-                ))
+                userViewModel.insert(
+                    UserTable(
+                        nama = user?.nama,
+                        alamat = user?.alamat,
+                        idUser = user?.id,
+                        token = token,
+                        tanggalLahir = user?.tanggalLahir,
+                        email = user?.email,
+                        pekerjaan = user?.pekerjaan,
+                        gender = user?.gender,
+                        updatedAt = user?.updatedAt
+                    )
+                )
                 startActivityClearPreviousActivity<MainActivity>()
             } else {
                 makeLongToast(result.message.toString())

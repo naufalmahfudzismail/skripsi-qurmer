@@ -8,11 +8,14 @@ interface SurahDao {
     @Query("SELECT * from surah ORDER BY id ASC")
     fun getAll(): LiveData<List<SurahTable>>
 
+    @Query("SELECT * from surah where surahId = :surahId ")
+    fun getSurah(surahId: Int): LiveData<SurahTable>
+
     @Insert
     fun insert(surahTable: SurahTable)
 
     @Query("SELECT * FROM surah WHERE surahBadgeId = :badgeId ")
-    fun selectPerBadge(badgeId: Int) : LiveData<List<SurahTable>>
+    fun selectPerBadge(badgeId: Int): LiveData<List<SurahTable>>
 
     @Query("DELETE FROM surah")
     fun deleteAll()

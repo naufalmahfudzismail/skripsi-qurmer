@@ -6,13 +6,14 @@ import id.dev.qurmer.utils.fingerprint.spectrogram.Window
 
 @SuppressLint("NewApi")
 class Fingerprint(data: FloatArray?, fs: Float) {
+
     private val nPeaks = 3
     private val fftSize = 512
     private val overlap = 256
     private val c = 32
     private val peakRange = 5
     private val peakList: ArrayList<Peak> = ArrayList()
-    private val linkList: ArrayList<Link> = ArrayList()
+    val linkList: ArrayList<Link> = ArrayList()
     private val freq: FloatArray
     private val time: FloatArray
     private val rangeTime = floatArrayOf(1f, 3f)
@@ -21,8 +22,8 @@ class Fingerprint(data: FloatArray?, fs: Float) {
     private val minFreq = 100f
     private val maxFreq = 2000f
     private val minPower = 0f
-    
-    private fun inband(intFreq: Int): Int {
+
+    fun inband(intFreq: Int): Int {
         val size = band.size
         if (intFreq < band[0] || intFreq > band[size - 1]) {
             return -1
@@ -33,10 +34,10 @@ class Fingerprint(data: FloatArray?, fs: Float) {
         return -1
     }
 
-    private fun link(band: Boolean) {
+    fun link(band: Boolean) {
         val n: Int = peakList.size
         for (i in 0 until n) {
-            val p1 = peakList[i] ?: continue
+            val p1 = peakList[i]
 
             //time start|end
             var tStart: Int
