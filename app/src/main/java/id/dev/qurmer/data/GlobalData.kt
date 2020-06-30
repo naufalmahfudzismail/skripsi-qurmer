@@ -1,11 +1,50 @@
 package id.dev.qurmer.data
 
 import id.dev.qurmer.data.model.Month
+import java.text.SimpleDateFormat
 import java.util.*
 
 object GlobalData{
 
     val FRAGMENT_STACK: MutableList<Int> = mutableListOf()
+
+    private val id = Locale("in", "ID")
+    private const val DATE_FORMAT_FROM_SERVER = "yyyy-MM-dd"
+    private const val DATE_FORMAT_WITH_TIME_SERVER = "yyyy-MM-dd HH:mm:ss"
+    private const val DATE_FORMAT_FOR_REQUEST = "YYYYMMDD"
+    private const val TARGET_DATE_FORMAT = "EEEE, dd MMM yyyy"
+    private const val TARGET_DATE_WITH_TIME = "EEEE, dd MMMM yyyy HH:mm"
+    private const val TARGET_JUST_DAY = "EEEE, dd MMM"
+
+    private val NEW_FORMAT = "dd-MM-yyyy"
+
+    val oldDateFormat = SimpleDateFormat(
+        DATE_FORMAT_FROM_SERVER,
+        id
+    )
+
+    val newFormatNoDay = SimpleDateFormat(
+        NEW_FORMAT,
+        id
+    )
+    val newFormat = SimpleDateFormat(
+        TARGET_DATE_FORMAT,
+        id
+    )
+    val justDayFormat = SimpleDateFormat(
+        TARGET_JUST_DAY,
+        id
+    )
+
+    val oldFormatWithTime = SimpleDateFormat(
+        DATE_FORMAT_WITH_TIME_SERVER,
+        id
+    )
+
+    val newFormatWithTime = SimpleDateFormat(
+        TARGET_DATE_WITH_TIME,
+        id
+    )
 
 
     fun days(): List<Int> {

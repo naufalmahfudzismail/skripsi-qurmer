@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,6 +8,7 @@
     tools:context=".rank.LeaderBoardActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txt_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -19,69 +20,77 @@
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_high_rank"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="10dp"
+        android:layout_below="@id/txt_title"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="180dp"
             android:layout_gravity="center"
-            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:padding="5dp">
 
             <androidx.cardview.widget.CardView
-                android:layout_marginStart="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
                 android:elevation="4dp"
                 app:cardCornerRadius="5dp">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:padding="8dp"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_profile_third"
-                        android:src="@drawable/mask_group"
-                        android:layout_gravity="center_horizontal"
                         android:layout_width="35dp"
-                        android:layout_height="35dp"/>
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/mask_group" />
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txt_name_third"
-                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        tools:text="Budi"
+                        android:layout_marginTop="5dp"
                         android:textColor="@color/black"
                         android:textSize="14sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        tools:text="Budi" />
+
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_marginTop="5dp"
                         android:id="@+id/txt_point_third"
-                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        tools:text="1004"
                         android:textColor="#5C5C5C"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txt_level_third"
-                        android:layout_gravity="center_horizontal"
-                        tools:text="Level 3"
-                        android:textStyle="bold"
                         android:textSize="12sp"
+                        tools:text="1004" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:textColor="@color/black"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/txt_level_third"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        tools:text="Level 3" />
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -95,9 +104,9 @@
                 android:elevation="10dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:src="@drawable/ic_circle_rank"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_circle_rank" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -114,56 +123,64 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="180dp"
+            android:layout_height="210dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:padding="5dp">
+            android:padding="2dp">
 
             <androidx.cardview.widget.CardView
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:elevation="4dp"
                 app:cardCornerRadius="5dp">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:padding="12dp"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="12dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_profile_first"
-                        android:src="@drawable/mask_group"
-                        android:layout_gravity="center_horizontal"
                         android:layout_width="40dp"
-                        android:layout_height="40dp"/>
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/mask_group" />
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txt_name_first"
-                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        tools:text="Budi"
+                        android:layout_marginTop="10dp"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        tools:text="Budi" />
+
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_marginTop="10dp"
                         android:id="@+id/txt_point_first"
-                        android:textSize="14sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        tools:text="1004"
                         android:textColor="#5C5C5C"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txt_level_first"
-                        android:layout_gravity="center_horizontal"
-                        tools:text="Level 3"
-                        android:textStyle="bold"
                         android:textSize="14sp"
+                        tools:text="1004" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:textColor="@color/black"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/txt_level_first"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        tools:text="Level 3" />
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -177,9 +194,9 @@
                 android:elevation="10dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:src="@drawable/ic_circle_rank"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_circle_rank" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -195,56 +212,63 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="180dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:padding="5dp">
 
             <androidx.cardview.widget.CardView
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:elevation="4dp"
                 app:cardCornerRadius="5dp">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:padding="8dp"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_profile_second"
-                        android:src="@drawable/mask_group"
-                        android:layout_gravity="center_horizontal"
                         android:layout_width="35dp"
-                        android:layout_height="35dp"/>
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/mask_group" />
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/txt_name_second"
-                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        tools:text="Budi"
+                        android:layout_marginTop="5dp"
                         android:textColor="@color/black"
                         android:textSize="14sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        tools:text="Budi" />
+
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_marginTop="5dp"
                         android:id="@+id/txt_point_second"
-                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        tools:text="1004"
                         android:textColor="#5C5C5C"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txt_level_second"
-                        android:layout_gravity="center_horizontal"
-                        tools:text="Level 3"
-                        android:textStyle="bold"
                         android:textSize="12sp"
+                        tools:text="1004" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/txt_level_second"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        tools:text="Level 3" />
 
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -258,9 +282,9 @@
                 android:elevation="10dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:src="@drawable/ic_circle_rank"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_circle_rank" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -278,10 +302,11 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <RelativeLayout
+        android:id="@+id/rl_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/ll_high_rank"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/ic_bg_header_rank"
         android:padding="10dp">
@@ -335,12 +360,95 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_above="@id/card_current_user"
         android:id="@+id/rv_rank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_header"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        tools:listitem="@layout/card_rank" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_current_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginStart="25dp"
-        tools:listitem="@layout/card_rank"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_marginBottom="10dp"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="5dp">
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E9AD00"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_user_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:text="1" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/txt_user_rank"
+                android:src="@drawable/mask_group" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@id/img_profile"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Ginanjar" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_user_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="40dp"
+                android:layout_toStartOf="@id/txt_user_level"
+                android:layout_toEndOf="@id/txt_user_name"
+                android:textAlignment="textEnd"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_user_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="2" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

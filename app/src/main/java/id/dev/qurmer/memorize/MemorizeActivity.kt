@@ -43,7 +43,7 @@ class MemorizeActivity : BaseActivity() {
         outputFile =
             Environment.getExternalStorageDirectory().absolutePath + "/record${surah.surahAudioName}-${1}.wav";
 
-       // doMatch()
+       doMatch()
 
 
         myAudioRecorder = MediaRecorder()
@@ -123,7 +123,7 @@ class MemorizeActivity : BaseActivity() {
         val same = simmiliar.similarity
         Log.e(
             "Result lib",
-            "${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${2}.mp3"} to" + " ${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${2}.mp3"} , ${count * 100}, ${same * 100}"
+            "${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${1}.mp3"} to" + " ${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${2}.mp3"} , ${count * 100}, ${same * 100}"
         )
 
 

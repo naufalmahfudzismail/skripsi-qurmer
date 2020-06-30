@@ -15,26 +15,33 @@
     <application
         android:name=".config.Qurmer"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo_qurmar"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo_qurmar"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".rank.LeaderBoardActivity"></activity>
-        <activity android:name=".challenge.OverviewChallengeActivity" />
-        <activity android:name=".challenge.PlayGroundChallengeActivity" />
-        <activity android:name=".challenge.ListChallengeActivity" />
-        <activity android:name=".media.list.ListSurahActivity" />
-        <activity android:name=".intro.IntroActivity" />
-        <activity android:name=".intro.onboard.OnBoardActivity">
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".home.challenge.DailyChallengeActivity" />
+        <activity android:name=".challenge.FinishChallengeActivity" />
+        <activity android:name=".challenge.play.PlayGroundLevelThreeActivity" />
+        <activity android:name=".challenge.play.PlayGroundLevelTwoActivity" />
+        <activity android:name=".rank.LeaderBoardActivity" />
+        <activity android:name=".challenge.OverviewChallengeActivity" />
+        <activity android:name=".challenge.play.PlayGroundLevelOneActivity" />
+        <activity android:name=".challenge.ListChallengeActivity" />
+        <activity android:name=".media.list.ListSurahActivity" />
+        <activity android:name=".intro.IntroActivity" />
+        <activity android:name=".intro.onboard.OnBoardActivity">
+
         </activity>
         <activity android:name=".media.SurahPlayerActivity" />
         <activity android:name=".memorize.MemorizeActivity" />
@@ -46,6 +53,7 @@
         <receiver android:name=".utils.AlarmNotification" />
 
         <service android:name=".utils.MediaPlayerService" />
+        <service android:name=".utils.BroadcastCountdownService" />
     </application>
 
 </manifest>

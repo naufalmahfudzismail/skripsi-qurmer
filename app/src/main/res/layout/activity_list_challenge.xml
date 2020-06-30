@@ -44,6 +44,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/ll_part_one"
                 android:background="@drawable/ic_rect_challenge_done"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -80,6 +81,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/ll_part_two"
                 android:background="@drawable/ic_rect_challenge_undone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -116,6 +118,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/ll_part_three"
                 android:background="@drawable/ic_rect_challenge_undone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

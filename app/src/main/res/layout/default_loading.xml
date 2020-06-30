@@ -1,50 +1,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/btm_progress_bar"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        tools:ignore="UselessParent">
+        android:background="@drawable/ic_dialog_positive"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <androidx.cardview.widget.CardView
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/logo_qurmar"
+            android:indeterminate="true"
+            android:max="100" />
+
+        <TextView
+            android:id="@+id/txt_loading_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="Memuat..."
+            android:textColor="@color/black"
+            android:textSize="14sp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
-
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:indeterminate="true"
-                    android:max="100" />
-
-                <TextView
-                    android:layout_margin="@dimen/_10sdp"
-                    android:id="@+id/txt_loading_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Memuat"
-                    android:textSize="12sp">
-
-                </TextView>
+        </TextView>
 
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-    </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>

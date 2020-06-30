@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProviders
 import id.dev.qurmer.config.BaseActivity
 import id.dev.qurmer.data.GlobalData.FRAGMENT_STACK
 import id.dev.qurmer.home.HomeFragment
-import id.dev.qurmer.home.HistoryFragment
+import id.dev.qurmer.home.history.HistoryFragment
 import id.dev.qurmer.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -103,7 +103,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun loadFragment(itemId: Int) {
+   /* private fun loadFragment(itemId: Int) {
         val tag = itemId.toString()
         val fragment = supportFragmentManager.findFragmentByTag(tag) ?: when (itemId) {
             R.id.home_main -> {
@@ -140,7 +140,7 @@ class MainActivity : BaseActivity() {
             transaction.commit()
             viewModel.lastActiveFragmentTag = tag
         }
-    }
+    }*/
 
     private fun controlNavbarStack(itemId: Int) {
         val isStackedBefore = FRAGMENT_STACK.contains(itemId)

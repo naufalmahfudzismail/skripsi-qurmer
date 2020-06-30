@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -36,9 +35,10 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_one_one"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:src="@color/colorPrimary" />
+                        android:src="@drawable/badge_one_one_undone" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
@@ -56,9 +56,10 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_one_two"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:src="@color/colorPrimary" />
+                        android:src="@drawable/badge_one_two_undone" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
@@ -104,9 +105,10 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_two_one"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:src="@color/colorPrimary" />
+                        android:src="@drawable/badge_two_one_undone" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
@@ -124,9 +126,10 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_two_two"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:src="@color/colorPrimary" />
+                        android:src="@drawable/bagdge_two_two_undone" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
@@ -144,9 +147,10 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_two_three"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:src="@color/colorPrimary" />
+                        android:src="@drawable/badge_two_three_undone" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
@@ -197,9 +201,10 @@
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_three_one"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
-                            android:src="@color/colorPrimary" />
+                            android:src="@drawable/badge_three_one_undone" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
@@ -217,9 +222,10 @@
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_three_two"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
-                            android:src="@color/colorPrimary" />
+                            android:src="@drawable/badge_three_two_undone" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
@@ -237,9 +243,10 @@
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_three_three"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
-                            android:src="@color/colorPrimary" />
+                            android:src="@drawable/badge_three_three_undone" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"

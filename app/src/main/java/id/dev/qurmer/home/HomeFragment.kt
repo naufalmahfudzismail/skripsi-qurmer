@@ -1,10 +1,13 @@
 package id.dev.qurmer.home
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,12 +17,15 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import id.dev.qurmer.R
+import id.dev.qurmer.challenge.ChallengeActivity
 import id.dev.qurmer.config.BaseActivity
 import id.dev.qurmer.data.model.ChallengeDataResponse
 import id.dev.qurmer.data.model.QuoteDataResponse
+import id.dev.qurmer.home.challenge.DailyChallengeActivity
 import id.dev.qurmer.media.list.ListSurahActivity
 import id.dev.qurmer.rank.LeaderBoardActivity
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.util.*
 
 
 class HomeFragment : Fragment(), HomeView {
@@ -51,11 +57,10 @@ class HomeFragment : Fragment(), HomeView {
         super.onViewCreated(view, savedInstanceState)
 
 
-        requestMultiplePermissions()
-
         val presenter = HomePresenter(context!!, this)
-        presenter.getQuote()
+        presenter.getQuote((activity as BaseActivity).getTokenWithBearer())
 
+        greeting()
 
         btn_menu_audio.setOnClickListener {
             (activity as BaseActivity).startActivityWithIntent<ListSurahActivity>("type" to 1)
@@ -65,18 +70,31 @@ class HomeFragment : Fragment(), HomeView {
             (activity as BaseActivity).startActivityWithIntent<ListSurahActivity>("type" to 2)
         }
 
+        ll_challenge.setOnClickListener {
+            (activity as BaseActivity).startActivityWithIntent<ChallengeActivity>()
+        }
+
         ll_rank.setOnClickListener {
             (activity as BaseActivity).startActivityWithIntent<LeaderBoardActivity>()
         }
+
+        btn_start_daily.setOnClickListener {
+            (activity as BaseActivity).startActivityWithIntent<DailyChallengeActivity>()
+        }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onQuoteResult(result: QuoteDataResponse?) {
         if (result != null) {
 
-            val adapter = result.quotes?.let { QuoteAdapter(activity!!, it) }
-            rv_quotes.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            val adapter = result.data?.quotes?.let { QuoteAdapter(activity!!, it) }
+            rv_quotes.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rv_quotes.itemAnimator = DefaultItemAnimator()
             rv_quotes.adapter = adapter
+
+            txt_name_home.text = "Halo, ${result.data?.user?.nama}"
+
 
         }
     }
@@ -95,6 +113,21 @@ class HomeFragment : Fragment(), HomeView {
 
     override fun onUnAuthorized() {
 
+    }
+
+    private fun greeting() {
+        val calendar = Calendar.getInstance()
+        when (calendar.get(Calendar.HOUR_OF_DAY)) {
+            in 0..11 -> {
+               bg_home.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.bg_header_home_recitation))
+            }
+            in 12..17 -> {
+                bg_home.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.bg_header_home_masjid_away))
+            }
+            in 18..23 -> {
+                bg_home.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.bg_header_home_masjid))
+            }
+        }
     }
 
 
@@ -144,7 +177,7 @@ class HomeFragment : Fragment(), HomeView {
                 ) {
                     token.continuePermissionRequest()
                 }
-            }).withErrorListener {  (activity as BaseActivity).makeLongToast("Error") }
+            }).withErrorListener { (activity as BaseActivity).makeLongToast("Error") }
             .onSameThread()
             .check()
     }

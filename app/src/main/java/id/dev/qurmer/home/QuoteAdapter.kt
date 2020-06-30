@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import id.dev.qurmer.R
-import id.dev.qurmer.data.model.QuoteDataResponse.Quote
+import id.dev.qurmer.data.model.QuoteDataResponse.Data.Quote
 import kotlinx.android.synthetic.main.card_quote.view.*
 
 class QuoteAdapter(val context: Context, val data: List<Quote>) :

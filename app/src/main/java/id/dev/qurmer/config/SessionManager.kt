@@ -1,12 +1,11 @@
 package id.dev.qurmer.config
 
 import android.content.Context
-import android.content.SharedPreferences
-import bolts.Bolts
 
 class SessionManager private constructor(private val context: Context) {
 
-    private val sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences =
+        context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
     val isLoggedIn: Boolean
         get() {
             val sharedPreferences =
@@ -26,15 +25,22 @@ class SessionManager private constructor(private val context: Context) {
         edit.apply()
     }
 
-    fun setDownload(){
+    fun setDownload() {
         val edit = sharedPreferences.edit()
         edit.putBoolean(DOWNLOAD_KEY, true)
         edit.apply()
     }
 
     fun getToken(): String? = sharedPreferences.getString(TOKEN_KEY, null)
-    fun getIntro() : Boolean  = sharedPreferences.getBoolean(INTRO_KEY, false)
+    fun getIntro(): Boolean = sharedPreferences.getBoolean(INTRO_KEY, false)
     fun getDownloadStatus(): Boolean = sharedPreferences.getBoolean(DOWNLOAD_KEY, false)
+
+
+    fun logOut() {
+        val edit = sharedPreferences.edit()
+        edit.remove(TOKEN_KEY)
+        edit.apply()
+    }
 
 
     companion object {

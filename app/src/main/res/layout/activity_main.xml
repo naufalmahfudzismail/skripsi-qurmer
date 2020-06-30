@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:checkable="true"
                 android:layout_height="wrap_content"
-                android:background="?android:windowBackground"
+                android:background="@color/white"
                 app:itemBackground="@drawable/btm_nav_background_selector"
                 app:itemIconTint="@drawable/btm_navigation_selector"
                 app:itemTextColor="@drawable/btm_navigation_selector"

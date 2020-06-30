@@ -77,6 +77,6 @@ class ReadFile {
 
 
     companion object {
-        private const val SAMPLE_RATE = 44100
+        private const val SAMPLE_RATE = 8000
     }
 }

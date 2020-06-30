@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="2dp"
     android:elevation="4dp"
     android:orientation="vertical"
     app:cardCornerRadius="5dp">
@@ -18,23 +19,24 @@
         android:padding="10dp">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_marginStart="10dp"
             android:id="@+id/txt_rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/poppins_bold"
             android:textColor="#74A60A"
             android:textSize="18sp"
             tools:text="1" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:src="@drawable/ic_profile"
+            android:layout_centerVertical="true"
             android:id="@+id/img_profile"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/txt_rank" />
+            android:layout_toEndOf="@id/txt_rank"
+            android:src="@drawable/mask_group" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txt_name"
@@ -49,7 +51,6 @@
             tools:text="Ginanjar" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:textColor="@color/black"
             android:id="@+id/txt_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,19 +59,20 @@
             android:layout_toStartOf="@id/txt_level"
             android:layout_toEndOf="@id/txt_name"
             android:textAlignment="textEnd"
+            android:textColor="@color/black"
             android:textSize="14sp"
             tools:text="2" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:textStyle="bold"
-            android:textColor="@color/black"
             android:id="@+id/txt_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
+            android:textColor="@color/black"
             android:textSize="14sp"
+            android:textStyle="bold"
             tools:text="2" />
 
     </RelativeLayout>

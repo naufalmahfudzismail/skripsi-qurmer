@@ -1,38 +1,35 @@
 package id.dev.qurmer.config
 
-import android.annotation.SuppressLint
 import android.app.Dialog
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.Window
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import id.dev.qurmer.R
-import id.dev.qurmer.data.database.surah.SurahTable
-import id.dev.qurmer.data.repository.APIRepository
-import id.dev.qurmer.utils.fingerprint.operation.OperationHash
-import java.io.BufferedInputStream
-import java.io.File
-import java.io.FileOutputStream
+import kotlinx.android.synthetic.main.dialog_play_status.*
+import kotlinx.android.synthetic.main.dialog_play_status.view.*
 import java.io.Serializable
-import java.net.URL
 
 abstract class BaseActivity : AppCompatActivity() {
 
 
     fun setDownloadDone() = SessionManager.getInstance(this).setDownload()
     fun setIntroDone() = SessionManager.getInstance(this).setIntro()
-    fun setToken(token : String) = SessionManager.getInstance(this).saveToken(token)
+    fun setToken(token: String) = SessionManager.getInstance(this).saveToken(token)
 
     fun loggedIn(): Boolean = SessionManager.getInstance(this).isLoggedIn
     fun getDownloadStatus() = SessionManager.getInstance(this).getDownloadStatus()
     fun getIntroStatus() = SessionManager.getInstance(this).getIntro()
     fun getTokenWithBearer(): String = "Bearer ${SessionManager.getInstance(this).getToken()}"
+    fun logOut() = SessionManager.getInstance(this).logOut()
 
     companion object {
         const val NOTIFICATION_CHANNEL_ID = "10001"
@@ -50,6 +47,37 @@ abstract class BaseActivity : AppCompatActivity() {
         runOnUiThread {
             Toast.makeText(this, text, Toast.LENGTH_LONG).show()
         }
+    }
+
+
+    fun showDialogChallenge(title : String, content : String, listener : DialogChallengeListener)=  try {
+
+        val factory = LayoutInflater.from(this)
+        val dialogViewOne =
+            factory.inflate(R.layout.dialog_play_status, null)
+        val dialogOne = AlertDialog.Builder(this).create()
+
+        dialogOne.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialogOne.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+        dialogViewOne.txt_title_dialog.text = title
+        dialogViewOne.txt_content_dialog.text = content
+
+        dialogViewOne.btn_yes.setOnClickListener {
+            listener.onPositiveClicked(dialogOne)
+        }
+
+
+        dialogViewOne.btn_no.setOnClickListener {
+            listener.onNegativeClicked(dialogOne)
+        }
+
+
+        dialogOne.setCancelable(false)
+        dialogOne.setView(dialogViewOne)
+        dialogOne.show()
+    }catch (e : Throwable){
+        Log.e("ERROR DIALOG", e.message.toString())
     }
 
 
@@ -142,7 +170,6 @@ abstract class BaseActivity : AppCompatActivity() {
             return@forEach
         }
     }
-
 
 
     /*fun  downloadAudio(fileName : String){

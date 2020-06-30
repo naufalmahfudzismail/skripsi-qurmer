@@ -8,24 +8,26 @@
     tools:context=".profile.ProfileFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btn_menu_profile"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentEnd="true" />
-
+        android:background="?selectableItemBackground"
+        android:id="@+id/btn_exit"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_exit" />
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/btn_menu_profile"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -77,12 +79,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:elevation="5dp"
             app:cardCornerRadius="5dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp">
@@ -189,7 +190,6 @@
             android:id="@+id/tabLayout_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             app:tabIndicatorColor="#74a60a"
             app:tabTextColor="#74a60a">
 
