@@ -34,6 +34,8 @@ data class HistoryResponse(
             var challenge: Challenge? = null,
             @SerializedName("challenge_id")
             var challengeId: String? = null, // 16
+            @SerializedName("try")
+            var numberTry: String? = null, // 16
             @SerializedName("created_at")
             var createdAt: String? = null, // 2020-06-28 12:01:14
             @SerializedName("id")
@@ -48,6 +50,8 @@ data class HistoryResponse(
             data class Challenge(
                 @SerializedName("created_at")
                 var createdAt: String? = null, // 2020-06-21 15:16:44
+                @SerializedName("wrong_score")
+                var wrongScore : String? = null,
                 @SerializedName("daily")
                 var daily: String? = null, // 0
                 @SerializedName("id")

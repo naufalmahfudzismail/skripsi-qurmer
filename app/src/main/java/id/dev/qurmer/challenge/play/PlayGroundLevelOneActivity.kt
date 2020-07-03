@@ -25,8 +25,8 @@ import id.dev.qurmer.config.DialogChallengeListener
 import id.dev.qurmer.data.database.ayat.AyatTable
 import id.dev.qurmer.data.database.ayat.AyatViewModel
 import id.dev.qurmer.data.model.AfterChallengeResponse
-import id.dev.qurmer.data.model.JoinChallengeResponse
 import id.dev.qurmer.data.model.ChallengeResponse
+import id.dev.qurmer.data.model.JoinChallengeResponse
 import id.dev.qurmer.utils.BroadcastCountdownService
 import kotlinx.android.synthetic.main.activity_play_ground_level_one.*
 import java.util.concurrent.TimeUnit
@@ -52,6 +52,7 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
     private lateinit var answerAyat: AyatTable
 
     private lateinit var data: ChallengeResponse.Data.Challenge
+    var time = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +60,8 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
         setContentView(R.layout.activity_play_ground_level_one)
 
         data = intent.getSerializableExtra("data") as ChallengeResponse.Data.Challenge
+
+        BroadcastCountdownService.TIME = data.time!!.toLong() * 60000
 
         presenter = ChallengePresenter(this, this)
         presenter.joinChallenge(getTokenWithBearer(), data.id.toString())
@@ -72,10 +75,12 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
         super.onJoinChallenge(result)
 
         if (result != null) {
-            startService(Intent(this, BroadcastCountdownService::class.java))
+
             ayatViewModel = ViewModelProviders.of(this).get(AyatViewModel::class.java)
 
             progressId = result.data?.progressId.toString()
+
+            time = data.time!!.toInt()
 
             title_challenge.text = data.level?.name
             title_surah.text = "Surah ${data.surah?.nama}"
@@ -95,8 +100,20 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
 
 
             if (data.level?.id == 1) {
+                startService(
+                    Intent(this, BroadcastCountdownService::class.java).putExtra(
+                        "time",
+                        time.toLong()
+                    )
+                )
                 data.surah?.id?.let { scrambleGame(it) }
             } else {
+                startService(
+                    Intent(this, BroadcastCountdownService::class.java).putExtra(
+                        "time",
+                        time.toLong()
+                    )
+                )
                 data.surah?.id?.let {
                     nextAyatGame(it)
                 }
@@ -113,7 +130,7 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
             val static = intent.getBooleanExtra("static", true)
             startActivityClearPreviousActivity<FinishChallengeActivity>(
                 "data" to data,
-                "try" to numberOfAyat,
+                "try" to numberOfTry,
                 "ayat" to numberOfAyat,
                 "time" to timeChallenge,
                 "static" to static
@@ -146,7 +163,9 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
                             presenter.afterChallenge(
                                 getTokenWithBearer(),
                                 data.id.toString(),
-                                progressId.toString()
+                                progressId.toString(),
+                                numberOfTry.toString(),
+                                (numberOfTry * data.wrongScore!!.toInt()).toString()
                             )
                         } else {
                             unregisterReceiver(br)
@@ -205,6 +224,8 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
 
 
     private fun nextAyatGame(surahId: Int) {
+        txt_info_soal.text = "Pilihan Ayat acak, Pilih Ayat Selanjut nya"
+
         ayatViewModel.getAyat(surahId).observe(this, Observer { ayats ->
 
             original.addAll(ayats)
@@ -232,7 +253,9 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
                     presenter.afterChallenge(
                         getTokenWithBearer(),
                         data.id.toString(),
-                        progressId.toString()
+                        progressId.toString(),
+                        numberOfTry.toString(),
+                        (numberOfTry * data.wrongScore!!.toInt()).toString()
                     )
                 } else {
                     //jawaban salah
@@ -248,7 +271,7 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
                                 txt_number_of_try.text = numberOfTry.toString()
 
                                 ayatAdapter.restore(original.shuffled())
-                                answerAdapter.removeAll()
+                                answerAdapter.removeLast()
 
                                 registerReceiver(
                                     br,
@@ -256,6 +279,7 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
                                 )
 
                             }
+
                             override fun onNegativeClicked(dialog: Dialog) {
                                 unregisterReceiver(br)
                                 finish()
@@ -277,7 +301,7 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
             rv_jawaban.adapter = ayatAdapter
 
             btn_replay.setOnClickListener { view ->
-                makeToast("Peninjau Ulang tidak di perkenankan dalam tantangan ini")
+                makeToast("Peninjau ulang tidak di perkenankan dalam tantangan ini")
             }
 
 
@@ -354,8 +378,9 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
 
     private
     val br = object : BroadcastReceiver() {
-        override fun onReceive(p0: Context?, p1: Intent?) {
-            updateGUI(p1)
+        override fun onReceive(p0: Context?, intent: Intent?) {
+            intent!!.putExtra("time", time)
+            updateGUI(intent)
         }
     }
 

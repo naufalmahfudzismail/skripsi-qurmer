@@ -36,7 +36,9 @@ class ListSurahActivity : BaseActivity() {
                 if (type == 1) {
                     startActivityWithIntent<SurahPlayerActivity>("surah" to surah)
                 } else {
-                    startActivityWithIntent<MemorizeActivity>("surah" to surah)
+
+                    makeToast("Akan Segara Datang")
+                    /*startActivityWithIntent<MemorizeActivity>("surah" to surah)*/
                 }
             }
             rv_list_surat.layoutManager = LinearLayoutManager(this)

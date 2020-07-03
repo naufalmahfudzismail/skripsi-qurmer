@@ -33,6 +33,11 @@ class AyatAnswerChallengeAdapter(val context: Context) :
         notifyDataSetChanged()
     }
 
+    fun removeLast(){
+        ayats.removeAt(ayats.lastIndex)
+        notifyItemRemoved(ayats.lastIndex)
+    }
+
 
     fun getSize() : Int = ayats.size
 

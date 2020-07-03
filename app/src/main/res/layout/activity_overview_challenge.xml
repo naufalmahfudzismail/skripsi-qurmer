@@ -54,12 +54,24 @@
             android:layout_height="wrap_content"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:textStyle="bold"
             android:layout_marginTop="20dp"
             android:textAlignment="center"
             android:text="Poin : 50XP"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:id="@+id/txt_point_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:text="Waktu : 1 Menit"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:id="@+id/txt_time_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

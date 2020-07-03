@@ -12,6 +12,7 @@
 
 
     <androidx.cardview.widget.CardView
+        android:layout_margin="5dp"
         android:elevation="3dp"
         app:cardCornerRadius="4dp"
         android:layout_width="match_parent"
@@ -62,6 +63,8 @@
             android:layout_above="@id/ll_audio_player">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:textSize="18sp"
+                android:textStyle="bold"
                 android:id="@+id/txt_title_audio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,30 +106,41 @@
         </RelativeLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:gravity="center"
+            android:layout_gravity="center"
             android:id="@+id/ll_audio_player"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatImageView
+                android:padding="5dp"
+                android:background="?selectableItemBackground"
+                android:layout_marginEnd="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_audio_back"
                 android:id="@+id/btn_back_audio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:padding="5dp"
+                android:background="?selectableItemBackground"
                 android:id="@+id/btn_play_pause_audio"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
-                android:src="@drawable/ic_pause_circle_filled" />
+                android:src="@drawable/ic_play_audio" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatImageView
+                android:padding="5dp"
+                android:background="?selectableItemBackground"
+                android:layout_marginStart="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_audio_next"
                 android:id="@+id/btn_next_audio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

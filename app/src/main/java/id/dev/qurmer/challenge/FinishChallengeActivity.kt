@@ -23,7 +23,7 @@ class FinishChallengeActivity : BaseActivity() {
         txt_num_ayat.text = numAyah.toString()
         txt_time.text = time.toString()
 
-        val totalScore = data.score!!.toInt() + data.level?.bonusScore!!.toInt()
+        val totalScore = data.score!!.toInt() + data.level?.bonusScore!!.toInt() - (numTry * data.wrongScore!!.toInt())
         txt_score.text = "$totalScore XP"
 
         btn_next.setOnClickListener {

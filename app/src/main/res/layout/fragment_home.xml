@@ -130,6 +130,7 @@
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
                             <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/btn_time_quran"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -181,7 +182,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginTop="5dp"
-                                    android:text="Audio Murothal"
+                                    android:text="Audio Murottal"
                                     android:textColor="@color/black"
                                     android:textSize="12sp" />
 

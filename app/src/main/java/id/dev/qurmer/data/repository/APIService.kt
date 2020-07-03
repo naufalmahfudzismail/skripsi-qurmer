@@ -46,7 +46,9 @@ interface APIService {
     fun afterChallengeAsync(
         @Header("Authorization") token: String,
         @Field("challenge_id") challengeId: String,
-        @Field("progress_id") progressId: String
+        @Field("progress_id") progressId: String,
+        @Field("wrong") jumlahSalah : String,
+        @Field("wrong_score")totalSalah : String
     ): Deferred<Response<AfterChallengeResponse>>
 
 

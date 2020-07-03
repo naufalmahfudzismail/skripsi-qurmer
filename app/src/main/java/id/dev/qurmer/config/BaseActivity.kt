@@ -31,6 +31,8 @@ abstract class BaseActivity : AppCompatActivity() {
     fun getTokenWithBearer(): String = "Bearer ${SessionManager.getInstance(this).getToken()}"
     fun logOut() = SessionManager.getInstance(this).logOut()
 
+
+
     companion object {
         const val NOTIFICATION_CHANNEL_ID = "10001"
         const val NOTIFICATION_REQUEST_CODE = 2002

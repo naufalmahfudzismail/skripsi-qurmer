@@ -22,9 +22,12 @@ class HistoryAdapter(val context: Context, val data: List<HistoryResponse.Data>)
 
             val surah = data.progress?.challenge?.surah
             val level = data.progress?.challenge?.level
+            val wrongScore =
+                data.progress?.numberTry!!.toInt() * data.progress?.challenge?.wrongScore!!.toInt()
             val score =
-                data.progress?.challenge?.score!!.toInt() + data.progress?.challenge?.level?.bonusScore!!.toInt()
+                data.progress?.challenge?.score!!.toInt() + data.progress?.challenge?.level?.bonusScore!!.toInt() - wrongScore
             val done = data.progress?.isDone
+
 
             if (done == "0") {
                 view.img_star.setImageDrawable(
@@ -33,15 +36,16 @@ class HistoryAdapter(val context: Context, val data: List<HistoryResponse.Data>)
                         R.drawable.ic_star_undone
                     )
                 )
-
                 view.txt_point.text = "+ 0 XP"
             } else {
-                view.txt_point.text = "+ ${score} XP"
+                view.txt_point.text = "+ $score XP"
             }
 
             view.txt_surah.text = "Surat ${surah?.nama.toString()}"
             view.txt_title_history.text = "Mengikuti Challenge ${level?.name}"
-            view.txt_date.text = newFormatWithTime.format(oldFormatWithTime.parse(data.createdAt!!)!!)
+            view.txt_date.text =
+                newFormatWithTime.format(oldFormatWithTime.parse(data.createdAt!!)!!)
+            view.txt_try.text = "Percobaan = ${data.progress?.numberTry}"
 
 
         }

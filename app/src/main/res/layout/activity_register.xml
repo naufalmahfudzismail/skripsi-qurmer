@@ -125,12 +125,22 @@
                     android:layout_height="52dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/ic_bg_editext_login"
-                    android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="12dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Tanggal lahir"
+                android:textColor="#533939"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -149,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:text="Tanggal"
                         android:textColor="#533939"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -176,7 +186,7 @@
                         android:layout_height="wrap_content"
                         android:text="Bulan"
                         android:textColor="#533939"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -201,7 +211,7 @@
                         android:layout_height="wrap_content"
                         android:text="Tahun"
                         android:textColor="#533939"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView

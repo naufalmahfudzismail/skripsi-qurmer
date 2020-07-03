@@ -8,9 +8,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.SocketTimeoutException
 
-class ChallengePresenter(val context : Context, val view : ChallengeView) : BasePresenter() {
+class ChallengePresenter(val context: Context, val view: ChallengeView) : BasePresenter() {
 
-    fun getStaticChallenge(token : String) = try {
+    fun getStaticChallenge(token: String) = try {
         view.startLoading()
         GlobalScope.launch(Dispatchers.Main) {
             val data = service.getStaticChallengeAsync(token)
@@ -43,7 +43,7 @@ class ChallengePresenter(val context : Context, val view : ChallengeView) : Base
     }
 
 
-    fun getDailyChallenge(token : String) = try {
+    fun getDailyChallenge(token: String) = try {
         view.startLoading()
         GlobalScope.launch(Dispatchers.Main) {
             val data = service.getDailyChallengeAsync(token)
@@ -76,8 +76,7 @@ class ChallengePresenter(val context : Context, val view : ChallengeView) : Base
     }
 
 
-
-    fun joinChallenge(token : String, challengeId : String)  = try {
+    fun joinChallenge(token: String, challengeId: String) = try {
         view.startLoading()
         GlobalScope.launch(Dispatchers.IO) {
             val data = service.joinChallengeAsync(token, challengeId)
@@ -109,10 +108,17 @@ class ChallengePresenter(val context : Context, val view : ChallengeView) : Base
         view.stopLoading()
     }
 
-    fun afterChallenge(token : String, challengeId : String, progressId : String)  = try {
+    fun afterChallenge(
+        token: String,
+        challengeId: String,
+        progressId: String,
+        jumlahSalah: String,
+        totalSalah: String
+    ) = try {
         view.startLoading()
         GlobalScope.launch(Dispatchers.IO) {
-            val data = service.afterChallengeAsync(token, challengeId, progressId)
+            val data =
+                service.afterChallengeAsync(token, challengeId, progressId, jumlahSalah, totalSalah)
             val result = data.await()
             when (result.code()) {
                 500 -> {

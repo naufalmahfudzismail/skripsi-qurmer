@@ -21,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="5dp"
         android:layout_toStartOf="@id/txt_point"
         android:layout_toEndOf="@id/img_star"
@@ -37,24 +37,24 @@
             tools:text="Mengerjakan Tantangan Hafalan Quran Level 1" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_below="@id/txt_title_history"
             android:id="@+id/txt_surah"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/txt_title_history"
             android:text="An-nas"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_alignParentBottom="true"
-            android:textSize="10sp"
             android:id="@+id/txt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="5dp"
             android:text="Senin, 20 Januari 2020"
             android:textColor="@color/black"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
 
@@ -70,5 +70,18 @@
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_bold"
         tools:text=" +50 XP" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginBottom="10dp"
+        android:textSize="10sp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/txt_try"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/poppins_bold"
+        tools:text="Salah = 0" />
 
 </RelativeLayout>

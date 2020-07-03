@@ -2,7 +2,6 @@ package id.dev.qurmer.home
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -62,6 +61,11 @@ class HomeFragment : Fragment(), HomeView {
 
         greeting()
 
+
+        btn_time_quran.setOnClickListener {
+            (activity as BaseActivity).makeToast("Akan Segara Datang")
+        }
+
         btn_menu_audio.setOnClickListener {
             (activity as BaseActivity).startActivityWithIntent<ListSurahActivity>("type" to 1)
         }
@@ -119,13 +123,28 @@ class HomeFragment : Fragment(), HomeView {
         val calendar = Calendar.getInstance()
         when (calendar.get(Calendar.HOUR_OF_DAY)) {
             in 0..11 -> {
-               bg_home.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.bg_header_home_recitation))
+                bg_home.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context!!,
+                        R.drawable.bg_header_home_recitation
+                    )
+                )
             }
             in 12..17 -> {
-                bg_home.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.bg_header_home_masjid_away))
+                bg_home.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context!!,
+                        R.drawable.bg_header_home_masjid_away
+                    )
+                )
             }
             in 18..23 -> {
-                bg_home.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.bg_header_home_masjid))
+                bg_home.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context!!,
+                        R.drawable.bg_header_home_masjid
+                    )
+                )
             }
         }
     }

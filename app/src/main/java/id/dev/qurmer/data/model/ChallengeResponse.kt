@@ -21,6 +21,8 @@ data class ChallengeResponse(
         data class Challenge(
             @SerializedName("created_at")
             var createdAt: String? = null, // 2020-06-21 15:16:44
+            @SerializedName("wrong_score")
+            var wrongScore : String? = null,
             @SerializedName("daily")
             var daily: String? = null, // 0
             @SerializedName("id")

@@ -132,9 +132,11 @@ class ChallengeActivity : BaseActivity(), ChallengeView {
                     currentLevel = 2
                     currentPart = 1
                     ll_two_one.setOnClickListener {
-                        startActivityWithIntent<ListChallengeActivity>(
+
+                        makeToast("Akan Segara Datang")
+                      /*  startActivityWithIntent<ListChallengeActivity>(
                             "data" to data, "level" to 2
-                        )
+                        )*/
                     }
 
                     ll_two_three.setOnClickListener {

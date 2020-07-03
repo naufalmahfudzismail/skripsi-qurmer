@@ -26,6 +26,7 @@ class OverviewChallengeActivity : BaseActivity() {
         val totalScore = challenge.score!!.toInt() + challenge.level?.bonusScore!!.toInt()
 
         txt_point_info.text = "Point $totalScore XP"
+        txt_time_info.text = "Waktu : ${challenge.time} Menit"
 
         btn_play_challenge.setOnClickListener {
             when (level) {

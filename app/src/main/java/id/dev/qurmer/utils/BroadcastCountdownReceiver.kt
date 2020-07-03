@@ -10,13 +10,15 @@ import android.util.Log
 /**
  * Created By naufa on 07/02/2020
  */
-open class BroadcastCountdownService(): Service (){
+open class BroadcastCountdownService() : Service() {
 
     private val TAG = "BroadcastService"
 
     companion object {
         const val COUNTDOWN_BR = "id.qurmar.countdown"
+        var TIME: Long = 120000
     }
+
 
     var bi = Intent(COUNTDOWN_BR)
     var cdt: CountDownTimer? = null
@@ -26,7 +28,7 @@ open class BroadcastCountdownService(): Service (){
     override fun onCreate() {
         super.onCreate()
         Log.i(TAG, "Starting timer...")
-        cdt = object : CountDownTimer(120000, 1000) {
+        cdt = object : CountDownTimer(TIME, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 Log.i(TAG, "Countdown seconds remaining: " + millisUntilFinished / 1000)
                 bi.putExtra("finish", false)
@@ -42,13 +44,20 @@ open class BroadcastCountdownService(): Service (){
         cdt?.start()
     }
 
+
     override fun onDestroy() {
         cdt!!.cancel()
         Log.i(TAG, "Timer cancelled")
         super.onDestroy()
     }
 
-    override fun onBind(arg0: Intent?): IBinder? {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        TIME = intent!!.getLongExtra("time", 2) * 60000
+        Log.e("Time", TIME.toString())
+        return super.onStartCommand(intent, flags, startId)
+    }
+
+    override fun onBind(i: Intent?): IBinder? {
         return null
     }
 
