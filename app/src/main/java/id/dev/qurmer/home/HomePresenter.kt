@@ -10,9 +10,7 @@ import kotlinx.coroutines.launch
 class HomePresenter(val context: Context, val view: HomeView) : BasePresenter() {
 
     fun getQuote(token : String) = try {
-
         view.startLoading()
-
         GlobalScope.launch(Dispatchers.Main) {
 
             val data = service.getQuoteAsync(token)

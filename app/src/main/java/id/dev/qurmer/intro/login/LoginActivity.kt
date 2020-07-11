@@ -2,6 +2,7 @@ package id.dev.qurmer.intro.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
@@ -47,23 +48,66 @@ class LoginActivity : BaseActivity(), LoginView {
         surahViewModel = ViewModelProviders.of(this).get(SurahViewModel::class.java)
         hashViewModel = ViewModelProviders.of(this).get(HashViewModel::class.java)
 
-        surahViewModel.allSurah.observe(this, Observer { it ->
-
+        /*surahViewModel.allSurah.observe(this, Observer {
             //input file
-            val file = File(it[0].surahPath!!)
-            Log.e("SURAT", it[0].surahName.toString())
+            val dir =  Environment.getExternalStorageDirectory().absolutePath + "/record113-7.mp3"
+            val file = File(dir)
 
-            val hashs = OperationHash.getHashFromFingerPrint(file, it[0].surahPath!!)
-            val fingerprint = OperationHash.getFingerPrintAudio(file, it[0].surahPath!!)
+            val hashs = OperationHash.getHashFromFingerPrint(file, dir)
+            val fingerprint = OperationHash.getFingerPrintAudio(file, dir)
 
-            Log.e("COUNT ARRAY", hashs.size.toString())
 
-            //target
+            hashViewModel.getSearchHash(hashs)
+                .observe(this, Observer { hash ->
+                    val search = SearchMatch()
+                    val match = search.findMatch(hash, fingerprint)
+                    if (match != null) {
+                        Log.e(
+                            "CONFIDENCE",
+                            search.confidence
+                        )
+                        Log.e("RELATIVE_CONFIDENCE", search.relativeConfidence!!)
+                        Log.e("OFFSET", search.offset!!)
+                        Log.e("OFFSET_SECOND", search.offsetSecond!!)
+                        val audio = it.find { audio -> audio.surahId == match.idSong }
+                        Log.e("AUDIO_RESULT", audio?.surahName.toString())
+                    } else {
+                        Log.e("NOT FOUND", "NOT FOUND")
+                    }
+                })
+
+          /*  //target
             hashViewModel.getHashByValue(hashs, it[0].surahId!!)
                 .observe(this, Observer { hash ->
                     val result = StringBuilder()
                     hash.forEach {
-                        result.append(it.surahId.toString() + ",")
+                        //result.append(it.surahId.toString() + ",")
+                    }
+                    Log.e("COUNT RESULT AN_NAS", hash.size.toString())
+                    Log.e("Result ANNAS", result.toString())
+
+                    val search = SearchMatch()
+                    val match = search.findMatch(hash, fingerprint)
+                    if (match != null) {
+                        Log.e(
+                            "CONFIDENCE ${it[0].surahName}",
+                            search.confidence
+                        )
+                        Log.e("RELATIVE_CONFIDENCE", search.relativeConfidence!!)
+                        Log.e("OFFSET", search.offset!!)
+                        Log.e("OFFSET_SECOND", search.offsetSecond!!)
+                        val audio = it.find { audio -> audio.surahId == match.idSong }
+                        Log.e("AUDIO", audio?.surahName.toString())
+                    } else {
+                        Log.e("NOT FOUND", "NOT FOUND")
+                    }
+                })
+
+            hashViewModel.getHashByValue(hashs, it[1].surahId!!)
+                .observe(this, Observer { hash ->
+                    val result = StringBuilder()
+                    hash.forEach {
+                        //result.append(it.surahId.toString() + ",")
                     }
                     Log.e("COUNT RESULT", hash.size.toString())
                     Log.e("Result", result.toString())
@@ -72,12 +116,12 @@ class LoginActivity : BaseActivity(), LoginView {
                     val match = search.findMatch(hash, fingerprint)
                     if (match != null) {
                         Log.e(
-                            "CONFIDENCE",
-                            ((hash.size.toDouble() / hashs.size.toDouble()) * 100).toString() + "%"
+                            "CONFIDENCE ${it[1].surahName}",
+                            search.confidence
                         )
-                        /* Log.e("RELATIVE_CONFIDENCE", search.relativeConfidence!!)
+                        Log.e("RELATIVE_CONFIDENCE", search.relativeConfidence!!)
                         Log.e("OFFSET", search.offset!!)
-                        Log.e("OFFSET_SECOND", search.offsetSecond!!)*/
+                        Log.e("OFFSET_SECOND", search.offsetSecond!!)
                         val audio = it.find { audio -> audio.surahId == match.idSong }
                         Log.e("AUDIO", audio?.surahName.toString())
                     } else {
@@ -85,7 +129,58 @@ class LoginActivity : BaseActivity(), LoginView {
                     }
                 })
 
-        })
+            hashViewModel.getHashByValue(hashs, it[2].surahId!!)
+                .observe(this, Observer { hash ->
+                    val result = StringBuilder()
+                    hash.forEach {
+                        //result.append(it.surahId.toString() + ",")
+                    }
+                    Log.e("COUNT RESULT", hash.size.toString())
+                    Log.e("Result", result.toString())
+
+                    val search = SearchMatch()
+                    val match = search.findMatch(hash, fingerprint)
+                    if (match != null) {
+                        Log.e(
+                            "CONFIDENCE ${it[2].surahName}",
+                            search.confidence
+                        )
+                        Log.e("RELATIVE_CONFIDENCE", search.relativeConfidence!!)
+                        Log.e("OFFSET", search.offset!!)
+                        Log.e("OFFSET_SECOND", search.offsetSecond!!)
+                        val audio = it.find { audio -> audio.surahId == match.idSong }
+                        Log.e("AUDIO", audio?.surahName.toString())
+                    } else {
+                        Log.e("NOT FOUND", "NOT FOUND")
+                    }
+                })
+
+            hashViewModel.getHashByValue(hashs, it[3].surahId!!)
+                .observe(this, Observer { hash ->
+                    val result = StringBuilder()
+                    hash.forEach {
+                        //result.append(it.surahId.toString() + ",")
+                    }
+                    Log.e("COUNT RESULT", hash.size.toString())
+                    Log.e("Result", result.toString())
+
+                    val search = SearchMatch()
+                    val match = search.findMatch(hash, fingerprint)
+                    if (match != null) {
+                        Log.e(
+                            "CONFIDENCE ${it[3].surahName}",
+                            search.confidence
+                        )
+                        Log.e("RELATIVE_CONFIDENCE", search.relativeConfidence!!)
+                        Log.e("OFFSET", search.offset!!)
+                        Log.e("OFFSET_SECOND", search.offsetSecond!!)
+                        val audio = it.find { audio -> audio.surahId == match.idSong }
+                        Log.e("AUDIO", audio?.surahName.toString())
+                    } else {
+                        Log.e("NOT FOUND", "NOT FOUND")
+                    }
+                })*/
+        })*/
 
 
         val email = intent.getStringExtra("email")

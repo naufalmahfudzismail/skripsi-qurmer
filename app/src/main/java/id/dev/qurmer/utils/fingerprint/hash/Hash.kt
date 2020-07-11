@@ -9,7 +9,6 @@ object Hash {
         val freq = link.start.intFreq // 5000
         return freq + 5000 * (df + 600 * dt)
     }
-
     fun hash2link(hash: Int): IntArray {
         val freq = hash % 5000
         val df = hash / 5000 % 600

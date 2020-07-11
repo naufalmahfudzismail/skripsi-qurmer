@@ -9,7 +9,6 @@ import id.dev.qurmer.utils.fingerprint.model.AudioMatch
 
 class SearchMatch {
 
-
     var confidence: String? = null
     var relativeConfidence: String? = null
     var offset: String? = null

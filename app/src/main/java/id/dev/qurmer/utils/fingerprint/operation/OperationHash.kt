@@ -10,7 +10,6 @@ import java.io.File
 
 object OperationHash {
 
-
     fun getHashFromFingerPrint(file: File, fileDir: String): IntArray {
         val linkList: ArrayList<Fingerprint.Link> = getFingerPrintAudio(file, fileDir)!!.linkList
         val linkHash = IntArray(linkList.size)
@@ -20,18 +19,15 @@ object OperationHash {
         return linkHash
     }
 
-
     fun getFingerPrintAudio(file: File, fileDir: String): Fingerprint? {
         val rf = ReadFile()
         return rf.readFile(file, fileDir)
     }
 
-
     fun insert(hashViewModel: HashViewModel, fileDir: String, surahId: Int) {
-
         val readFile = ReadFile()
         val file = File(fileDir)
-        val fp =  readFile.readFile(file, fileDir)
+        val fp = readFile.readFile(file, fileDir)
         val audioLength: Double = readFile.audioLength
 
         val list = fp?.linkList
@@ -40,7 +36,22 @@ object OperationHash {
             val hashTable = HashTable(surahId = info.id, hash = info.hash, time = info.time)
             hashViewModel.insertHash(hashTable)
         }
-
     }
 
+    fun getHashTable(fileDir: String, id: Int): List<HashTable> {
+        val readFile = ReadFile()
+        val file = File(fileDir)
+        val fp = readFile.readFile(file, fileDir)
+        val audioLength: Double = readFile.audioLength
+
+        val list = fp?.linkList
+        val listHashTable: MutableList<HashTable> = mutableListOf()
+        list?.forEach {
+            val info = InfoHash(id, it)
+            val hashTable = HashTable(surahId = info.id, hash = info.hash, time = info.time)
+            listHashTable.add(hashTable)
+        }
+
+        return listHashTable
+    }
 }

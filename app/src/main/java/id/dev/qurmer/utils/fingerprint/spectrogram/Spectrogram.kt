@@ -15,7 +15,6 @@ class Spectrogram(
     val fft: FloatFFT_1D
     val fftData: FloatArray
 
-
     private fun calcFFT(win: FloatArray) {
         for (i in win.indices) {
             fftData[i * 2] = win[i]
@@ -41,7 +40,6 @@ class Spectrogram(
             time[i] = stepSize * i / fs
         }
     }
-
     init {
         val dataLen = data.size
         val stepSize = windowSize - overlap
@@ -59,7 +57,6 @@ class Spectrogram(
             val win: FloatArray? = try {
                 window.window(data, i)
             } catch (e: Exception) {
-
                 null
             }
             //calc fft

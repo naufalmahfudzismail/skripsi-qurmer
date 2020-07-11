@@ -12,6 +12,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!--
+
+        <uses-permission android:name="android.permission.WAKE_LOCK" />
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    -->
 
     <application
         android:name=".config.Qurmer"
@@ -24,7 +29,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".task.TaskActivity"></activity>
+        <activity android:name=".task.SettingReminderActivity" />
+        <activity android:name=".task.ReminderActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +48,7 @@
         <activity android:name=".challenge.ListChallengeActivity" />
         <activity android:name=".media.list.ListSurahActivity" />
         <activity android:name=".intro.IntroActivity" />
-        <activity android:name=".intro.onboard.OnBoardActivity"></activity>
+        <activity android:name=".intro.onboard.OnBoardActivity" />
         <activity android:name=".media.SurahPlayerActivity" />
         <activity android:name=".memorize.MemorizeActivity" />
         <activity android:name=".challenge.ChallengeActivity" />
@@ -50,20 +56,34 @@
         <activity android:name=".intro.login.LoginActivity" />
         <activity android:name=".MainActivity" />
 
-        <receiver android:name=".utils.AlarmNotification" />
+
+        <receiver android:name=".task.notification.AlarmReceiver" />
+
+        <receiver android:name=".task.notification.TimeChangedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".task.notification.BootCompleteReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
 
         <service android:name=".utils.MediaPlayerService" />
         <service android:name=".utils.BroadcastCountdownService" />
 
         <service android:name=".config.BackgroundAudioService">
-
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
         </service>
-        <service android:name=".config.notification.ReminderIntentService" />
+
 
         <receiver android:name="androidx.media.session.MediaButtonReceiver">
             <intent-filter>
@@ -71,7 +91,8 @@
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".config.notification.NotificationDailyAlarmReceiver" />
+
+
     </application>
 
 </manifest>

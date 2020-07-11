@@ -47,7 +47,6 @@ class DailyChallengeActivity : BaseActivity(), ChallengeView {
                     "static" to false
                 )
             }
-
             rv_daily_challenge.layoutManager = GridLayoutManager(this, 2)
             rv_daily_challenge.itemAnimator = DefaultItemAnimator()
             rv_daily_challenge.adapter = adapter

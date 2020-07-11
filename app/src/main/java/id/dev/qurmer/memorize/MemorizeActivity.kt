@@ -1,19 +1,28 @@
 package id.dev.qurmer.memorize
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.Window
+import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.musicg.wave.Wave
 import id.dev.qurmer.R
 import id.dev.qurmer.config.BaseActivity
+import id.dev.qurmer.data.database.hash.HashTable
 import id.dev.qurmer.data.database.hash.HashViewModel
 import id.dev.qurmer.data.database.surah.SurahTable
 import id.dev.qurmer.data.database.surah.SurahViewModel
 import id.dev.qurmer.utils.fingerprint.operation.OperationHash
+import id.dev.qurmer.utils.fingerprint.operation.SearchMatch
 import kotlinx.android.synthetic.main.activity_memorize.*
+import kotlinx.android.synthetic.main.dialog_fingerprint.view.*
 import java.io.File
 
 
@@ -22,6 +31,7 @@ class MemorizeActivity : BaseActivity() {
     private var myAudioRecorder: MediaRecorder? = null
     private lateinit var hashViewModel: HashViewModel
     private lateinit var surahViewModel: SurahViewModel
+    private lateinit var surah: SurahTable
     private var state: Boolean = false
     private var recordingStopped: Boolean = false
 
@@ -32,7 +42,7 @@ class MemorizeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_memorize)
 
-        val surah = intent.getSerializableExtra("surah") as SurahTable
+        surah = intent.getSerializableExtra("surah") as SurahTable
         val dateNow = System.currentTimeMillis()
 
         txt_surah.text = surah.surahName
@@ -41,17 +51,18 @@ class MemorizeActivity : BaseActivity() {
         surahViewModel = ViewModelProviders.of(this).get(SurahViewModel::class.java)
 
         outputFile =
-            Environment.getExternalStorageDirectory().absolutePath + "/record${surah.surahAudioName}-${1}.wav";
-
-       doMatch()
+            Environment.getExternalStorageDirectory().absolutePath + "/record${surah.surahAudioName}-${dateNow}.mp3"
 
 
+        //compare()
+
+        doMatch()
         myAudioRecorder = MediaRecorder()
         myAudioRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
-        myAudioRecorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+        myAudioRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
         myAudioRecorder?.setAudioSamplingRate(44100)
-        myAudioRecorder?.setAudioEncodingBitRate(1024 * 1024)
-        myAudioRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        myAudioRecorder?.setAudioEncodingBitRate(16 * 44100)
+        myAudioRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
         myAudioRecorder?.setOutputFile(outputFile)
 
         btn_play.isEnabled = false
@@ -84,7 +95,7 @@ class MemorizeActivity : BaseActivity() {
                 btn_stop.isEnabled = false
                 makeToast("STOP RECORDING")
                 btn_play.isEnabled = true
-                //doMatch(surah)
+                //doMatch()
             }
         }
 
@@ -103,92 +114,164 @@ class MemorizeActivity : BaseActivity() {
     }
 
 
-    private fun doMatch() {
+    private fun compare() {
 
-        val dir = Environment.getExternalStorageDirectory().absolutePath + "/tes.wav"
+        val dir = Environment.getExternalStorageDirectory().absolutePath + "/record114-7.mp3"
+        val dir2 = Environment.getExternalStorageDirectory().absolutePath + "/test-nas.mp3"
 
-        val file1 =
-            File(Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${1}.wav")
-        val file2 =
-            File(Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${2}.wav")
+        val file = File(dir)
+        val file2 = File(dir2)
 
-        val wave1 =
-            Wave(file1.inputStream())
-        val wave2 =
-            Wave(file2.inputStream())
+        // val targetSurat = surah.surahId
 
-        val simmiliar = wave1.getFingerprintSimilarity(wave2)
+        val hashs1 = OperationHash.getHashTable(dir, 1)
+        val fingerprint1 = OperationHash.getFingerPrintAudio(file, dir)
 
-        val count = simmiliar.score
-        val same = simmiliar.similarity
-        Log.e(
-            "Result lib",
-            "${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${1}.mp3"} to" + " ${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${2}.mp3"} , ${count * 100}, ${same * 100}"
-        )
+        val hashs2 = OperationHash.getHashTable(dir2, 2)
+        val fingerprint2 = OperationHash.getFingerPrintAudio(file2, dir2)
+        val resultHash: MutableList<HashTable> = mutableListOf()
 
 
-        val hashs1 = OperationHash.getHashFromFingerPrint(file1, Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${1}.wav")
-        val fingerprint1 = OperationHash.getFingerPrintAudio(file1, file1.absolutePath)
-        Log.e("COUNT ARRAY", hashs1.size.toString())
+        Log.e("Hash1", hashs1.size.toString())
+        Log.e("Hash2", hashs2.size.toString())
 
-        val hashs2 = OperationHash.getHashFromFingerPrint(file2, Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${2}.wav")
-        val fingerprint2 = OperationHash.getFingerPrintAudio(file2, file2.absolutePath)
-        Log.e("COUNT ARRAY", hashs2.size.toString())
 
-        var sum = 0
-
-        hashs1.forEach {
-            hashs2.forEach { it2 ->
-                if (it == it2) {
-                    sum++
+        hashs1.forEach { hash1 ->
+            hashs2.forEach { hash2 ->
+                if (hash2.hash == hash1.hash) {
+                    resultHash.add(hash2)
                 }
             }
         }
-        Log.e("RESULT COUNT ARRAY", (sum / hashs1.size).toString())
 
-        //target
+        Log.e("result", resultHash.size.toString())
 
-        /*   surahViewModel.allSurah.observe(this, Observer { surahData ->
+        val search = SearchMatch()
+        val match = search.findMatch(resultHash, fingerprint1)
 
-               val target = surahData[0].surahPath
+        if (match != null) {
+            Log.e(
+                "CONFIDENCE",
+                search.confidence
+            )
+            Log.e("RELATIVE_CONFIDENCE", search.relativeConfidence!!)
+            Log.e("OFFSET", search.offset!!)
+            Log.e("OFFSET_SECOND", search.offsetSecond!!)
+            /* val audio = it.find { audio -> audio.surahId == match.idSong }
+             Log.e("AUDIO_RESULT", audio?.surahName.toString())
 
-               val file = File(surahData[1].surahPath!!)
-
-               val hashs = OperationHash.getHashFromFingerPrint(file, dir)
-               val fingerprint = OperationHash.getFingerPrintAudio(file, dir)
-               Log.e("COUNT ARRAY", hashs.size.toString())
-
-               hashViewModel.getHashByValue(hashs, surahData[0].surahId!!)
-                   .observe(this, Observer { hash ->
-
-                       val result = StringBuilder()
-                       hash.forEach {
-                           result.append(it.surahId.toString() + ",")
-                       }
-
-                       Log.e("COUNT RESULT", hash.size.toString())
-                       Log.e("Result", result.toString())
-                       val search = SearchMatch()
-                       val match = search.findMatch(hash, fingerprint)
-                       if (match != null) {
-                           Log.e(
-                               "CONFIDENCE",
-                               ((hash.size.toDouble() / hashs.size.toDouble()) * 100).toString() + "%"
-                           )
-
-                           Log.e("RELATIVE_CONFIDENCE", search.relativeConfidence!!)
-                           Log.e("OFFSET", search.offset!!)
-                           Log.e("OFFSET_SECOND", search.offsetSecond!!)
-                           val audio = surahData.find { audio -> audio.surahId == match.idSong }
-                           Log.e("AUDIO", audio?.surahName.toString())
+             val succes = if (surah.surahId == audio?.surahId) {
+                 "Sesuai"
+             } else {
+                 "Tidak Sesuai"
+             }
+ */
+            showResultDialog(
+                "An-nas",
+                search.confidence.toString(),
+                search.relativeConfidence.toString(),
+                "TestCompare"
+            )
+        } else {
+            Log.e("NOT FOUND", "NOT FOUND")
+        }
 
 
-                       } else {
-                           Log.e("NOT FOUND", "NOT FOUND")
-                       }
-                   })
-           })*/
     }
 
+
+    private fun doMatch() {
+
+        surahViewModel.allSurah.observe(this, Observer {
+            //input file
+            val dir = outputFile!!
+            val file = File(dir)
+
+            val hashs = OperationHash.getHashFromFingerPrint(file, dir)
+            Log.e("JUMLAH HASH", hashs.size.toString())
+            val fingerprint = OperationHash.getFingerPrintAudio(file, dir)
+
+           /* val file2 = File(it[0].surahPath!!)
+            val wave1 =
+                Wave(file.inputStream())
+            val wave2 =
+                Wave(file2.inputStream())
+
+            val simmiliar = wave1.getFingerprintSimilarity(wave2)
+
+            val count = simmiliar.score
+            val same = simmiliar.similarity
+            Log.e(
+                "Result lib",
+                "${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${1}.mp3"} to" + " ${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${2}.mp3"} , ${count * 100}, ${same * 100}"
+            )*/
+
+            hashViewModel.getSearchHash(hashs)
+                .observe(this, Observer { hash ->
+                    val search = SearchMatch()
+                    val match = search.findMatch(hash, fingerprint)
+                    if (match != null) {
+                        Log.e(
+                            "CONFIDENCE",
+                            search.confidence
+                        )
+                        Log.e("RELATIVE_CONFIDENCE", search.relativeConfidence!!)
+                        Log.e("OFFSET", search.offset!!)
+                        Log.e("OFFSET_SECOND", search.offsetSecond!!)
+                        val audio = it.find { audio -> audio.surahId == match.idSong }
+                        Log.e("AUDIO_RESULT", audio?.surahName.toString())
+
+                        val succes = if (surah.surahId == audio?.surahId) {
+                            "Sesuai"
+                        } else {
+                            "Tidak Sesuai"
+                        }
+
+                        showResultDialog(
+                            audio?.surahName.toString(),
+                            search.confidence.toString(),
+                            search.relativeConfidence.toString(),
+                            succes
+                        )
+                    } else {
+                        Log.e("NOT FOUND", "NOT FOUND")
+                    }
+
+
+                })
+
+        })
+    }
+
+
+    private fun showResultDialog(
+        result: String,
+        confidence: String,
+        relativeConfidence: String,
+        finalResult: String
+    ) {
+
+        val factory = LayoutInflater.from(this)
+        val dialogView =
+            factory.inflate(R.layout.dialog_fingerprint, null)
+        val dialog = AlertDialog.Builder(this).create()
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+        dialogView.txt_result.text = "Terdeteksi $result"
+        dialogView.txt_confidence.text = "Confidence : $confidence"
+        dialogView.txt_relative_confidence.text = "Relative Confidence : $relativeConfidence"
+        dialogView.txt_final_result.text = "Hasil : $finalResult"
+
+        dialogView.btn_close.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setCancelable(false)
+        dialog.setView(dialogView)
+        dialog.show()
+
+    }
 
 }

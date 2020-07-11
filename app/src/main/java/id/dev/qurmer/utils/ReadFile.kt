@@ -16,26 +16,8 @@ import java.time.Duration
 
 class ReadFile {
     var audioLength = 0.0
-
-
     @Throws(Exception::class)
     fun readFile(file: File, path: String): Fingerprint? {
-        /*val stream: InputStream
-        stream = try {
-            AudioSystem.getAudioInputStream(file)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            throw e
-        }
-        val format: AudioFormat = AudioFormat.ENCODING_MP3
-        if (format.encoding != AudioFormat.ENCODING_PCM_16BIT) {
-            throw Exception("Encoding must be PCM_SIGNED!")
-        }
-        if (format.sampleRate != SAMPLE_RATE) {
-            throw Exception("SampleRate must be $SAMPLE_RATE!")
-        }*/
-
-
         val stream = file.inputStream()
         val len = getDuration(path).toInt()
         val dataL = FloatArray(len)
@@ -74,7 +56,6 @@ class ReadFile {
             mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
         return durationStr.toLong()
     }
-
 
     companion object {
         private const val SAMPLE_RATE = 8000

@@ -95,13 +95,6 @@ class SurahPlayerActivity : BaseActivity() {
         val bundle = Bundle()
         bundle.putString("title", surah.surahName!!)
 
-        mediaBrowserCompat = MediaBrowserCompat(
-            this, ComponentName(this, BackgroundAudioService::class.java),
-            mediaBrowserCompatConnectionCallback(surah.surahPath!!, bundle), bundle
-        )
-
-        mediaBrowserCompat.connect()
-
         ayatViewModel.getAyat(surah.surahId!!).observe(this, Observer {
             ayatAdapter = AyatAdapter(this, it)
             rv_ayat.layoutManager = LinearLayoutManager(this)
@@ -137,7 +130,6 @@ class SurahPlayerActivity : BaseActivity() {
             seekBar_audio.max = finalTime.toInt()
             oneTimeOnly = 1
         }
-
 
         txt_title_audio.text = "Surat ${surah.surahName}"
 
@@ -182,15 +174,10 @@ class SurahPlayerActivity : BaseActivity() {
                         R.drawable.ic_audio_play
                     )
                 )
-
-                /*if (mediaControllerCompat.playbackState.state == PlaybackStateCompat.STATE_PLAYING) {
-                    mediaControllerCompat.transportControls.pause()
-                }*/
                 true
             } else {
                 mediaPlayer.start()
                 myHandler.postDelayed(updateSongTime, 100)
-                //mediaControllerCompat.transportControls.play()
                 btn_play_pause_audio.setImageDrawable(
                     ContextCompat.getDrawable(
                         this,
@@ -209,11 +196,7 @@ class SurahPlayerActivity : BaseActivity() {
 
         }
 
-        btn_next_audio.setOnClickListener {
-            //mediaPlayer.stop()
-        }
     }
-
     private val updateSongTime: Runnable = object : Runnable {
         @SuppressLint("DefaultLocale")
         override fun run() {
@@ -232,10 +215,6 @@ class SurahPlayerActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-      /*  if (mediaControllerCompat.playbackState.state == PlaybackStateCompat.STATE_PLAYING) {
-            mediaControllerCompat.transportControls.pause()
-        }
-        mediaBrowserCompat.disconnect()*/
 
         mediaPlayer.stop()
 

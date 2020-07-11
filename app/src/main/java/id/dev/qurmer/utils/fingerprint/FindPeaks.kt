@@ -3,8 +3,10 @@ package id.dev.qurmer.utils.fingerprint
 import kotlin.math.log10
 
 class FindPeaks(private val nPeaks: Int) {
+
     val power: FloatArray = FloatArray(nPeaks)
     val locate: IntArray = IntArray(nPeaks)
+
     fun findComplexPeaks(data: FloatArray, neighborRange: Int) {
         val len = data.size / 2
         for (i in 0 until nPeaks) {
@@ -48,18 +50,5 @@ class FindPeaks(private val nPeaks: Int) {
                 break
             }
         }
-    } /*
-    private int inBand(float freq, float[] freqRange){
-        int size = freqRange.length;
-        if(freq < freqRange[0] || freq > freqRange[size - 1]) {
-            return -1;
-        }
-        for(int i = 0; i < size - 1; i ++){
-            if(freqRange[i + 1] > freq)
-                return i;
-        }
-        return -1;
     }
-*/
-
 }

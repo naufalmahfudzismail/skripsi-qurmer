@@ -9,22 +9,22 @@ import id.dev.qurmer.utils.fingerprint.model.Match
 class SearchHashing {
 
     private val hashMap: HashMap<Long, Match?> = HashMap(400000)
-
-
     private var maxId: Long = -1
     private var maxCount = -1
     private var maxTime = -1
 
-
     fun search(fp: Fingerprint, hashs: List<HashTable>): AudioMatch {
         val linkList: ArrayList<Fingerprint.Link> = fp.linkList
+
         val linkHash = IntArray(linkList.size)
         val linkTime = IntArray(linkList.size)
+
         for (i in linkHash.indices) {
             linkHash[i] = hash(linkList[i])
             linkTime[i] = linkList[i].start.intTime
         }
-        return search(linkTime, linkHash, hashs)
+
+        return search(linkTime = linkTime, linkHash = linkHash, results =  hashs)
     }
 
     private fun search(
@@ -51,9 +51,9 @@ class SearchHashing {
             }
 
             hashMap.forEach { (hash, countTime) ->
-                if (countTime!!.time > 15 && countTime.count > maxCount) {
+                if ( countTime!!.count > maxCount) {
                     maxId = hash
-                    maxCount = countTime.time
+                    maxCount = countTime.count
                     maxTime = countTime.time
                 }
             }
@@ -73,10 +73,14 @@ class SearchHashing {
 
     companion object {
         fun idHash(id: Int, time: Int): Long {
+
+            //bitsiw left shift <<
             return ((id shl 16) + time + (1 shl 15)).toLong()
         }
 
         fun hash2id(idHash: Long): Int {
+
+            //bitwise right shift >>
             return (idHash shr 16).toInt()
         }
     }

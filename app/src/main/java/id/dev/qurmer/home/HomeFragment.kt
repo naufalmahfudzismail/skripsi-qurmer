@@ -23,6 +23,7 @@ import id.dev.qurmer.data.model.QuoteDataResponse
 import id.dev.qurmer.home.challenge.DailyChallengeActivity
 import id.dev.qurmer.media.list.ListSurahActivity
 import id.dev.qurmer.rank.LeaderBoardActivity
+import id.dev.qurmer.task.ReminderActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 
@@ -63,7 +64,8 @@ class HomeFragment : Fragment(), HomeView {
 
 
         btn_time_quran.setOnClickListener {
-            (activity as BaseActivity).makeToast("Akan Segara Datang")
+            (activity as BaseActivity).startActivityWithIntent<ReminderActivity>("type" to 1)
+            //(activity as BaseActivity).makeToast("Akan Segara Datang")
         }
 
         btn_menu_audio.setOnClickListener {

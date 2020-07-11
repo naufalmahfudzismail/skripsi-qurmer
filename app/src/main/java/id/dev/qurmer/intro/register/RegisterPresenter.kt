@@ -12,7 +12,7 @@ class RegisterPresenter(val context: Context, val view: RegisterView) : BasePres
     fun register(
         email: String, name: String,
         date: String,
-        password: String, gender: String, username: String, work : String
+        password: String, gender: String, username: String, work: String
     ) = try {
         view.startLoading()
         GlobalScope.launch(Dispatchers.IO) {
@@ -35,6 +35,9 @@ class RegisterPresenter(val context: Context, val view: RegisterView) : BasePres
                 }
                 404 -> {
                     view.onError(context.getString(R.string.base_not_found))
+                }
+                400 -> {
+                    view.onError("Email sudah terdaftar")
                 }
                 500 -> {
                     view.onError(context.getString(R.string.base_server_error))

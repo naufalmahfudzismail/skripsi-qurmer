@@ -31,6 +31,21 @@ class SessionManager private constructor(private val context: Context) {
         edit.apply()
     }
 
+    fun setTimeAlarm(time: Long) {
+        val edit = sharedPreferences.edit()
+        edit.putLong(ALARM_KEY, time)
+        edit.apply()
+    }
+
+    fun setDescriptionAlarm(desc : String){
+        val edit = sharedPreferences.edit()
+        edit.putString(DESC_ALARM, desc)
+        edit.apply()
+    }
+
+    fun getDescriptionAlarm() = sharedPreferences.getString(DESC_ALARM, null)
+
+    fun getTimeAlarm(): Long = sharedPreferences.getLong(ALARM_KEY, 1)
     fun getToken(): String? = sharedPreferences.getString(TOKEN_KEY, null)
     fun getIntro(): Boolean = sharedPreferences.getBoolean(INTRO_KEY, false)
     fun getDownloadStatus(): Boolean = sharedPreferences.getBoolean(DOWNLOAD_KEY, false)
@@ -46,10 +61,12 @@ class SessionManager private constructor(private val context: Context) {
     companion object {
 
 
-        private const val SHARED_PREF_NAME = "QURMER_PREFERENCES"
+        const val SHARED_PREF_NAME = "QURMER_PREFERENCES"
         private const val INTRO_KEY = "intro"
         private const val TOKEN_KEY = "token"
         private const val DOWNLOAD_KEY = "download"
+        private const val ALARM_KEY = "alarm"
+        private const val DESC_ALARM = "desc_alarm"
 
         private var mInstance: SessionManager? = null
 

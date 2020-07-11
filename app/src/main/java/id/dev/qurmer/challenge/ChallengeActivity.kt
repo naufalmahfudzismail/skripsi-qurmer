@@ -28,10 +28,6 @@ class ChallengeActivity : BaseActivity(), ChallengeView {
 
             val data = result.data
 
-            val levelOne = data?.challenge?.filter { it.level?.level == "1" }
-            val levelTwo = data?.challenge?.filter { it.level?.level == "2" }
-            val levelThree = data?.challenge?.filter { it.level?.level == "3" }
-
             val progress = data?.progress
             val progressLevelOne = progress?.filter { it.level == "1" }
             val progressLevelTwo = progress?.filter { it.level == "2" }
@@ -39,7 +35,6 @@ class ChallengeActivity : BaseActivity(), ChallengeView {
 
             var currentLevel: Int? = null
             var currentPart: Int? = null
-
 
             // level 1
             if (progressLevelOne!!.size >= 3) {

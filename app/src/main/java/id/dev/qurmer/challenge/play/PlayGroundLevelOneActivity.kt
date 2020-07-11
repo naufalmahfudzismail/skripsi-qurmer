@@ -75,13 +75,9 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
         super.onJoinChallenge(result)
 
         if (result != null) {
-
             ayatViewModel = ViewModelProviders.of(this).get(AyatViewModel::class.java)
-
             progressId = result.data?.progressId.toString()
-
             time = data.time!!.toInt()
-
             title_challenge.text = data.level?.name
             title_surah.text = "Surah ${data.surah?.nama}"
 
@@ -152,7 +148,6 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
                 AyatChallengeAdapter(
                     this, shuffeled
                 ) { ayat, position ->
-
                     numberOfAyat++
                     number_of_ayat.text = numberOfAyat.toString()
                     answerAdapter.addAyat(ayat)

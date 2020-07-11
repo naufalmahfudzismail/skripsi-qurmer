@@ -30,15 +30,12 @@ class ListSurahActivity : BaseActivity() {
         val surahViewModel = ViewModelProviders.of(this).get(SurahViewModel::class.java)
         surahViewModel.allSurah.observe(this, Observer {
 
-
             surahs.addAll(it)
             adapter = ListSurahAdapter(this, it) { surah ->
                 if (type == 1) {
                     startActivityWithIntent<SurahPlayerActivity>("surah" to surah)
                 } else {
-
-                    makeToast("Akan Segara Datang")
-                    /*startActivityWithIntent<MemorizeActivity>("surah" to surah)*/
+                    startActivityWithIntent<MemorizeActivity>("surah" to surah)
                 }
             }
             rv_list_surat.layoutManager = LinearLayoutManager(this)
@@ -49,10 +46,7 @@ class ListSurahActivity : BaseActivity() {
 
         initSearch()
 
-
     }
-
-
     private fun initSearch() {
         search_surah.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = false

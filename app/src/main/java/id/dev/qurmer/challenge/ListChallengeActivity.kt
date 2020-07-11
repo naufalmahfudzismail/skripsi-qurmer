@@ -15,7 +15,6 @@ class ListChallengeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_challenge)
 
-
         val data = intent.getSerializableExtra("data") as ChallengeResponse.Data
         val level = intent.getIntExtra("level", 1)
 
@@ -23,7 +22,6 @@ class ListChallengeActivity : BaseActivity() {
         val progressLevelOne = progress?.filter { it.level == "1" }
         val progressLevelTwo = progress?.filter { it.level == "2" }
         val progressLevelThree = progress?.filter { it.level == "3" }
-
 
         // Case nya bagian yang sudah tidak tahu surat nya apa game nya apa kaerena random, hanya membuka bagian yang belum
 

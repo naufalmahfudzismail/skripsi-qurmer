@@ -1,5 +1,7 @@
 package id.dev.qurmer.utils.fingerprint.spectrogram
 
+import kotlin.math.cos
+
 class Window(windowType: Int, private val windowSize: Int) {
 
 
@@ -27,7 +29,7 @@ class Window(windowType: Int, private val windowSize: Int) {
     private fun initHannWindow(windowSize: Int) {
         for (i in 0 until windowSize) {
             window[i] =
-                (0.5 * (1 - Math.cos(2 * Math.PI * i / (windowSize - 1)))).toFloat()
+                (0.5 * (1 - cos(2 * Math.PI * i / (windowSize - 1)))).toFloat()
         }
     }
 
@@ -69,7 +71,7 @@ class Window(windowType: Int, private val windowSize: Int) {
             var w: Float
             for (i in 0 until n) {
                 w =
-                    (0.5 * (1 - Math.cos(2 * Math.PI * i / (n - 1)))).toFloat()
+                    (0.5 * (1 - cos(2 * Math.PI * i / (n - 1)))).toFloat()
                 data[i] = data[i] * w
             }
             return data

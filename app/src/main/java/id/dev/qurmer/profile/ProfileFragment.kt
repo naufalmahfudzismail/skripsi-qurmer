@@ -44,8 +44,6 @@ class ProfileFragment : Fragment(), ProfileView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         presenter = ProfilePresenter(context!!, this)
         presenter.getUser((activity as BaseActivity).getTokenWithBearer())
 
@@ -66,13 +64,11 @@ class ProfileFragment : Fragment(), ProfileView {
 
                 })
         }
-
     }
 
     override fun onResult(result: UserResponse?) {
         activity?.runOnUiThread {
             if (result != null) {
-
                 val adapter = ProfileFragmentAdapter(childFragmentManager, activity!!, result)
                 viewPager_profile.adapter = adapter
                 tabLayout_profile.setupWithViewPager(viewPager_profile)

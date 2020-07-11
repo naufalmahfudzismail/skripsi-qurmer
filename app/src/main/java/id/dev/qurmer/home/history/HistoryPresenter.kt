@@ -13,7 +13,6 @@ class HistoryPresenter(val context: Context, val view: HistoryView) : BasePresen
     fun getHistory(token: String) = try {
 
         view.startLoading()
-
         GlobalScope.launch(Dispatchers.Main) {
 
             val data = service.getHistoryAsync(token)

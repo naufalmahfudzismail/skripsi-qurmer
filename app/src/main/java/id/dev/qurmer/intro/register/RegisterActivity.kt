@@ -155,10 +155,13 @@ class RegisterActivity : BaseActivity(), RegisterView {
         hideLoading()
     }
 
+    override fun onError(error: String) {
+       makeLongToast(error)
+    }
+
     override fun onUnAuthorized() {
 
     }
-
 
     private fun showPopUpSpinner(
         data: List<*>,
