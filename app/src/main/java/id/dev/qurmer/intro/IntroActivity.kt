@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
@@ -158,6 +159,28 @@ class IntroActivity : BaseActivity(), IntroView {
                     }
 
                 })
+                /*try {
+                    repeat(13) {
+                        val dir =
+                            Environment.getExternalStorageDirectory().absolutePath + "/114/114-${it + 1}.mp3"
+                        OperationHash.insert(hashViewModel, dir, 1)
+                        Log.e("HAshing", "an-nas")
+                    }
+                    repeat(13) {
+                        val dir =
+                            Environment.getExternalStorageDirectory().absolutePath + "/113/113-${it + 1}.mp3"
+                        OperationHash.insert(hashViewModel, dir, 2)
+                        Log.e("HAshing", "al-falaq")
+                    }
+                    repeat(13) {
+                        val dir =
+                            Environment.getExternalStorageDirectory().absolutePath + "/112/112-${it + 1}.mp3"
+                        OperationHash.insert(hashViewModel, dir, 3)
+                        Log.e("HAshing", "al-ikhlas")
+                    }
+                }catch (e : Throwable){
+                    Log.e("ERROR", e.message.toString())
+                }*/
                 setDownloadDone()
             }
 

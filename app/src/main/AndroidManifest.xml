@@ -55,8 +55,6 @@
         <activity android:name=".intro.register.RegisterActivity" />
         <activity android:name=".intro.login.LoginActivity" />
         <activity android:name=".MainActivity" />
-
-
         <receiver android:name=".task.notification.AlarmReceiver" />
 
         <receiver android:name=".task.notification.TimeChangedReceiver">

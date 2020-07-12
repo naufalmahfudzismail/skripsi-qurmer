@@ -1,13 +1,17 @@
 package id.dev.qurmer
 
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import id.dev.qurmer.config.BaseActivity
 import id.dev.qurmer.data.GlobalData.FRAGMENT_STACK
+import id.dev.qurmer.data.database.hash.HashViewModel
 import id.dev.qurmer.home.HomeFragment
 import id.dev.qurmer.home.history.HistoryFragment
 import id.dev.qurmer.profile.ProfileFragment
+import id.dev.qurmer.utils.fingerprint.operation.OperationHash
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -20,6 +24,10 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        val hashViewModel = ViewModelProviders.of(this).get(HashViewModel::class.java)
+
+
+
 
         nav_home.setOnNavigationItemSelectedListener {
             controlNavbarStack(it.itemId)

@@ -12,7 +12,6 @@ import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.musicg.wave.Wave
 import id.dev.qurmer.R
 import id.dev.qurmer.config.BaseActivity
 import id.dev.qurmer.data.database.hash.HashTable
@@ -56,7 +55,7 @@ class MemorizeActivity : BaseActivity() {
 
         //compare()
 
-        doMatch()
+        //doMatch()
         myAudioRecorder = MediaRecorder()
         myAudioRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
         myAudioRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
@@ -95,7 +94,7 @@ class MemorizeActivity : BaseActivity() {
                 btn_stop.isEnabled = false
                 makeToast("STOP RECORDING")
                 btn_play.isEnabled = true
-                //doMatch()
+                doMatch()
             }
         }
 
@@ -187,24 +186,25 @@ class MemorizeActivity : BaseActivity() {
             val dir = outputFile!!
             val file = File(dir)
 
+            //Environment.getExternalStorageDirectory().absolutePath + "/test-nas.mp3"
             val hashs = OperationHash.getHashFromFingerPrint(file, dir)
             Log.e("JUMLAH HASH", hashs.size.toString())
             val fingerprint = OperationHash.getFingerPrintAudio(file, dir)
 
-           /* val file2 = File(it[0].surahPath!!)
-            val wave1 =
-                Wave(file.inputStream())
-            val wave2 =
-                Wave(file2.inputStream())
+            /* val file2 = File(it[0].surahPath!!)
+             val wave1 =
+                 Wave(file.inputStream())
+             val wave2 =
+                 Wave(file2.inputStream())
 
-            val simmiliar = wave1.getFingerprintSimilarity(wave2)
+             val simmiliar = wave1.getFingerprintSimilarity(wave2)
 
-            val count = simmiliar.score
-            val same = simmiliar.similarity
-            Log.e(
-                "Result lib",
-                "${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${1}.mp3"} to" + " ${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${2}.mp3"} , ${count * 100}, ${same * 100}"
-            )*/
+             val count = simmiliar.score
+             val same = simmiliar.similarity
+             Log.e(
+                 "Result lib",
+                 "${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${1}.mp3"} to" + " ${Environment.getExternalStorageDirectory().absolutePath + "/record${114}-${2}.mp3"} , ${count * 100}, ${same * 100}"
+             )*/
 
             hashViewModel.getSearchHash(hashs)
                 .observe(this, Observer { hash ->

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".task.ReminderActivity">
 
@@ -12,7 +11,8 @@
         android:id="@+id/ll_empty_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
@@ -47,20 +47,41 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_make_reminder"
-            android:textColor="@color/white"
-            android:text="Buat Jadwal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
             android:background="@drawable/ic_button_bg_come_in"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:text="Buat Jadwal"
+            android:textColor="@color/white" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
+    <RelativeLayout
+        android:id="@+id/rl_not_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_reminder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/card_reminder" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_reminder"
+            android:background="@drawable/ic_add_reminder"
+            android:layout_margin="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+
+
+    </RelativeLayout>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

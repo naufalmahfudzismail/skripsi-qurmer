@@ -8,7 +8,7 @@ import android.os.Build
 
 object AlarmHelper {
 
-    fun setAlarm(context: Context, time: Long, desc: String) {
+    fun setAlarm(context: Context, time: Long, repeat : Long,  desc: String) {
 
         val broadcastIntent = Intent(
             context
@@ -27,15 +27,17 @@ object AlarmHelper {
 
         if (System.currentTimeMillis() < time) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmMgr.setAndAllowWhileIdle(
+                alarmMgr.setRepeating(
                     AlarmManager.RTC_WAKEUP,
                     time,
+                    repeat,
                     intent
                 )
             } else {
-                alarmMgr.set(
+                alarmMgr.setRepeating(
                     AlarmManager.RTC_WAKEUP,
                     time,
+                    repeat,
                     intent
                 )
             }

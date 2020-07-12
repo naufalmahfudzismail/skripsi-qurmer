@@ -1,6 +1,7 @@
 package id.dev.qurmer.task
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.TimePickerDialog
 import android.content.ComponentName
 import android.content.pm.PackageManager
@@ -8,9 +9,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProviders
 import id.dev.qurmer.R
 import id.dev.qurmer.config.BaseActivity
 import id.dev.qurmer.config.SessionManager
+import id.dev.qurmer.data.database.reminder.ReminderTable
+import id.dev.qurmer.data.database.reminder.ReminderViewModel
 import id.dev.qurmer.task.notification.AlarmHelper
 import id.dev.qurmer.task.notification.BootCompleteReceiver
 import kotlinx.android.synthetic.main.activity_setting_reminder.*
@@ -34,6 +38,9 @@ class SettingReminderActivity : BaseActivity() {
 
         var timeInMilliSeconds: Long = 0
         val receiver = ComponentName(applicationContext, BootCompleteReceiver::class.java)
+
+
+        val viewModel = ViewModelProviders.of(this).get(ReminderViewModel::class.java)
 
         applicationContext.packageManager?.setComponentEnabledSetting(
             receiver,
@@ -81,10 +88,23 @@ class SettingReminderActivity : BaseActivity() {
             Log.e("MINUTE", chooseMinute.toString())
             if (chooseDay != 0 && timeInMilliSeconds.toInt() != 0 && edt_desc.text.toString() != null) {
 
+                val reminder = ReminderTable(
+                    time = timeInMilliSeconds,
+                    repeat = 24 * 60 * 1000 * 60 * 7,
+                    name = edt_desc.text.toString()
+                )
+                
+                viewModel.insert(reminder)
                 SessionManager.getInstance(this).setDescriptionAlarm(edt_desc.text.toString())
                 SessionManager.getInstance(this).setTimeAlarm(timeInMilliSeconds)
-                AlarmHelper.setAlarm(this, timeInMilliSeconds, edt_desc.text.toString())
+                AlarmHelper.setAlarm(
+                    this,
+                    timeInMilliSeconds,
+                    AlarmManager.INTERVAL_DAY * 7,
+                    edt_desc.text.toString()
+                )
                 makeToast("Pengingat telah di buat")
+                onBackPressed()
 
             } else {
                 makeToast("Silahkan Pilih Hari, waktu dan Tujuan pengingat nya terlebih dahulu")

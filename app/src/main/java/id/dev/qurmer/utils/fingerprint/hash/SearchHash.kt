@@ -24,7 +24,7 @@ class SearchHashing {
             linkTime[i] = linkList[i].start.intTime
         }
 
-        return search(linkTime = linkTime, linkHash = linkHash, results =  hashs)
+        return search(linkTime = linkTime, linkHash = linkHash, results = hashs)
     }
 
     private fun search(
@@ -51,7 +51,7 @@ class SearchHashing {
             }
 
             hashMap.forEach { (hash, countTime) ->
-                if ( countTime!!.count > maxCount) {
+                if (countTime!!.count > maxCount) {
                     maxId = hash
                     maxCount = countTime.count
                     maxTime = countTime.time
@@ -75,7 +75,7 @@ class SearchHashing {
         fun idHash(id: Int, time: Int): Long {
 
             //bitsiw left shift <<
-            return ((id shl 16) + time + (1 shl 15)).toLong()
+            return ((id shl 16)).toLong()
         }
 
         fun hash2id(idHash: Long): Int {
