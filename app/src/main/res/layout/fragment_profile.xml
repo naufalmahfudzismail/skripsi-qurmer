@@ -31,6 +31,7 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_profile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
@@ -62,11 +63,12 @@
                     tools:text="Pelajar" />
 
                 <RatingBar
+                    android:id="@+id/rating"
                     style="?ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:rating="5"
+                    android:rating="3"
                     android:theme="@style/RatingBar" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

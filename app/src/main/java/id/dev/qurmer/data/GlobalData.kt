@@ -6,6 +6,11 @@ import java.util.*
 
 object GlobalData{
 
+
+    var LEVEL = 1
+    var isChallenge = false
+    var SUB_LEVEL = 1
+
     val FRAGMENT_STACK: MutableList<Int> = mutableListOf()
 
     private val id = Locale("in", "ID")

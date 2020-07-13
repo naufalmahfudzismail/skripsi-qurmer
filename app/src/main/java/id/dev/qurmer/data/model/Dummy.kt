@@ -3,7 +3,7 @@ package id.dev.qurmer.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class UserResponse(
+data class Dummy(
     @SerializedName("Data")
     var data: Data? = null,
     @SerializedName("Error")
@@ -120,7 +120,7 @@ data class UserResponse(
             @SerializedName("nama")
             var nama: String? = null, // bambang
             @SerializedName("pekerjaan")
-            var pekerjaan: String? = null, // null
+            var pekerjaan: Any? = null, // null
             @SerializedName("rank")
             var rank: Int? = null, // 3
             @SerializedName("tanggal_lahir")

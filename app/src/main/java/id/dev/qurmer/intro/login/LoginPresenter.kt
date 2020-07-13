@@ -12,7 +12,7 @@ class LoginPresenter(val context: Context, val view: LoginView) : BasePresenter(
 
     fun login(email: String, password: String) = try {
         view.startLoading()
-        GlobalScope.launch(Dispatchers.Main) {
+        GlobalScope.launch(Dispatchers.IO) {
             val data = service.loginAsync(email, password)
             val result = data.await()
             when (result.code()) {

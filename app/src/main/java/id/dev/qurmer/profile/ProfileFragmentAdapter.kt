@@ -7,14 +7,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import id.dev.qurmer.data.model.UserResponse
 
-class ProfileFragmentAdapter(fm: FragmentManager, val context: Context, val userResponse: UserResponse) :
+class ProfileFragmentAdapter(fm: FragmentManager, val context: Context, private val userResponse: UserResponse) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment = LencanaFragment(userResponse)
         when (position) {
             0 -> fragment = newInstanceLencana(userResponse)
-            1 -> fragment = newInstancePencapaian()
+            1 -> fragment = newInstancePencapaian(userResponse)
         }
         return fragment
     }
@@ -37,9 +37,9 @@ class ProfileFragmentAdapter(fm: FragmentManager, val context: Context, val user
             return bookedFragment
         }
 
-        fun newInstancePencapaian(): PencapaianFragment {
+        fun newInstancePencapaian(userResponse: UserResponse): PencapaianFragment {
             val bindData = Bundle()
-            val pendingFragment = PencapaianFragment()
+            val pendingFragment = PencapaianFragment(userResponse)
             pendingFragment.arguments = bindData
             return pendingFragment
         }

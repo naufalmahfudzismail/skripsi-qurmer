@@ -8,7 +8,7 @@ import android.os.Build
 
 object AlarmHelper {
 
-    fun setAlarm(context: Context, time: Long, repeat : Long,  desc: String) {
+    fun setAlarm(context: Context, time: Long, repeat : Long,  desc: String, id : Int) {
 
         val broadcastIntent = Intent(
             context
@@ -17,9 +17,9 @@ object AlarmHelper {
 
         val intent = PendingIntent.getBroadcast(
             context,
-            0,
+            id,
             broadcastIntent,
-            0
+            PendingIntent.FLAG_ONE_SHOT
         )
 
         // Setting up AlarmManager
@@ -27,7 +27,7 @@ object AlarmHelper {
 
         if (System.currentTimeMillis() < time) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmMgr.setRepeating(
+                alarmMgr.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,
                     time,
                     repeat,

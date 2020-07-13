@@ -43,7 +43,7 @@ class ListChallengeActivity : BaseActivity() {
                         ll_part_two.background =
                             ContextCompat.getDrawable(this, R.drawable.ic_rect_challenge_done)
                         ll_part_two.setOnClickListener {
-                            startActivityWithIntent<OverviewChallengeActivity>(
+                            startActivityClearPreviousActivity<OverviewChallengeActivity>(
                                 "data" to chooseList[1],
                                 "level" to level,
                                 "static" to true
@@ -72,7 +72,7 @@ class ListChallengeActivity : BaseActivity() {
                         ll_part_three.background =
                             ContextCompat.getDrawable(this, R.drawable.ic_rect_challenge_done)
                         ll_part_three.setOnClickListener {
-                            startActivityWithIntent<OverviewChallengeActivity>(
+                            startActivityClearPreviousActivity<OverviewChallengeActivity>(
                                 "data" to chooseList[3],
                                 "level" to level,
                                 "static" to true
@@ -83,7 +83,7 @@ class ListChallengeActivity : BaseActivity() {
                     else -> {
 
                         ll_part_one.setOnClickListener {
-                            startActivityWithIntent<OverviewChallengeActivity>(
+                            startActivityClearPreviousActivity<OverviewChallengeActivity>(
                                 "data" to chooseList[0],
                                 "level" to level,
                                 "static" to true
@@ -116,7 +116,7 @@ class ListChallengeActivity : BaseActivity() {
                         ll_part_two.background =
                             ContextCompat.getDrawable(this, R.drawable.ic_rect_challenge_done)
                         ll_part_two.setOnClickListener {
-                            startActivityWithIntent<OverviewChallengeActivity>(
+                            startActivityClearPreviousActivity<OverviewChallengeActivity>(
                                 "data" to chooseList[1],
                                 "level" to level,
                                 "static" to true
@@ -145,7 +145,7 @@ class ListChallengeActivity : BaseActivity() {
                         ll_part_three.background =
                             ContextCompat.getDrawable(this, R.drawable.ic_rect_challenge_done)
                         ll_part_three.setOnClickListener {
-                            startActivityWithIntent<OverviewChallengeActivity>(
+                            startActivityClearPreviousActivity<OverviewChallengeActivity>(
                                 "data" to chooseList[3],
                                 "level" to level,
                                 "static" to true
@@ -155,7 +155,7 @@ class ListChallengeActivity : BaseActivity() {
                     }
                     else -> {
                         ll_part_one.setOnClickListener {
-                            startActivityWithIntent<OverviewChallengeActivity>(
+                            startActivityClearPreviousActivity<OverviewChallengeActivity>(
                                 "data" to chooseList[0],
                                 "level" to level,
                                 "static" to true
@@ -187,7 +187,7 @@ class ListChallengeActivity : BaseActivity() {
                         ll_part_two.background =
                             ContextCompat.getDrawable(this, R.drawable.ic_rect_challenge_done)
                         ll_part_two.setOnClickListener {
-                            startActivityWithIntent<OverviewChallengeActivity>(
+                            startActivityClearPreviousActivity<OverviewChallengeActivity>(
                                 "data" to chooseList[1],
                                 "level" to level,
                                 "static" to true
@@ -216,7 +216,7 @@ class ListChallengeActivity : BaseActivity() {
                         ll_part_three.background =
                             ContextCompat.getDrawable(this, R.drawable.ic_rect_challenge_done)
                         ll_part_three.setOnClickListener {
-                            startActivityWithIntent<OverviewChallengeActivity>(
+                            startActivityClearPreviousActivity<OverviewChallengeActivity>(
                                 "data" to chooseList[3],
                                 "level" to level,
                                 "static" to true
@@ -226,7 +226,7 @@ class ListChallengeActivity : BaseActivity() {
                     }
                     else -> {
                         ll_part_one.setOnClickListener {
-                            startActivityWithIntent<OverviewChallengeActivity>(
+                            startActivityClearPreviousActivity<OverviewChallengeActivity>(
                                 "data" to chooseList[0],
                                 "level" to level,
                                 "static" to true

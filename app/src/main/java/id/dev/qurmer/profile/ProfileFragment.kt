@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import id.dev.qurmer.R
 import id.dev.qurmer.config.BaseActivity
 import id.dev.qurmer.config.DialogChallengeListener
 import id.dev.qurmer.data.model.UserResponse
 import id.dev.qurmer.intro.IntroActivity
-import id.dev.qurmer.intro.login.LoginActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment(), ProfileView {
@@ -58,6 +58,7 @@ class ProfileFragment : Fragment(), ProfileView {
                         (activity as BaseActivity).startActivityClearPreviousActivity<IntroActivity>()
 
                     }
+
                     override fun onNegativeClicked(dialog: Dialog) {
                         dialog.dismiss()
                     }
@@ -74,6 +75,17 @@ class ProfileFragment : Fragment(), ProfileView {
                 tabLayout_profile.setupWithViewPager(viewPager_profile)
 
                 val data = result.data
+
+                val gender = data!!.user?.gender
+
+                if (gender == "Perempuan") {
+                    img_profile.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            context!!,
+                            R.drawable.ic_avatar_cewe
+                        )
+                    )
+                }
 
                 txt_name.text = data?.user?.nama
                 txt_point.text = data?.score?.totalScore
@@ -96,6 +108,21 @@ class ProfileFragment : Fragment(), ProfileView {
                         }
                     }
                 }
+
+                when (txt_level.text) {
+                    "1" -> {
+                        rating.rating = 1f
+                    }
+
+                    "2" -> {
+                        rating.rating = 3f
+                    }
+                    else -> {
+                        rating.rating = 5f
+                    }
+                }
+
+
             }
         }
     }

@@ -124,14 +124,14 @@
                     android:background="@drawable/ic_replay" />
 
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <!--<androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
                     android:text="Ulangi"
                     android:textAlignment="center"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black" />-->
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

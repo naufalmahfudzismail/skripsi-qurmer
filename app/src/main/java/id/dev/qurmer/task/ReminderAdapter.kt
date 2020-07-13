@@ -28,6 +28,7 @@ class ReminderAdapter(
             view.txt_time.text = convertLongToTime(reminderTable.time!!)
 
             view.switch_on.isChecked = reminderTable.isActive
+            view.txt_day.text = reminderTable.day
             view.switch_on.setOnCheckedChangeListener { buttonView, isChecked ->
                 listener(reminderTable)
             }

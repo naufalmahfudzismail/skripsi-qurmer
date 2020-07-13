@@ -14,5 +14,7 @@ class ReminderTable(
     @ColumnInfo(name = "name")
     var name: String? = null,
     @ColumnInfo(name = "isActive")
-    var isActive : Boolean = true
+    var isActive: Boolean = true,
+    @ColumnInfo(name = "day")
+    var day: String? = null
 )

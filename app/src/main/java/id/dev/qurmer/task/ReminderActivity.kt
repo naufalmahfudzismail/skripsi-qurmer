@@ -18,7 +18,6 @@ class ReminderActivity : BaseActivity() {
 
         val reminderViewModel = ViewModelProviders.of(this).get(ReminderViewModel::class.java)
 
-
         reminderViewModel.allReminder.observe(this, Observer {
             val size = it.size
 
@@ -46,6 +45,10 @@ class ReminderActivity : BaseActivity() {
             }
 
         })
+
+        ll_back_reminder.setOnClickListener {
+            onBackPressed()
+        }
 
         btn_make_reminder.setOnClickListener {
             startActivityWithIntent<SettingReminderActivity>()

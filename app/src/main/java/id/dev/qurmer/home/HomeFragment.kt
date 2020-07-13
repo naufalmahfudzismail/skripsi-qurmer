@@ -68,6 +68,10 @@ class HomeFragment : Fragment(), HomeView {
             //(activity as BaseActivity).makeToast("Akan Segara Datang")
         }
 
+        btn_start_recitation.setOnClickListener {
+            (activity as BaseActivity).startActivityWithIntent<DailyChallengeActivity>()
+        }
+
         btn_menu_audio.setOnClickListener {
             (activity as BaseActivity).startActivityWithIntent<ListSurahActivity>("type" to 1)
         }

@@ -41,24 +41,30 @@ class SearchHashing {
                 var count: Match?
                 val idHash =
                     idHash(
-                        hash.surahId!!,
-                        linkHashMap[hash.hash]!! - hash.time!!
+                        hash.surahId!!
                     )
+
+                //inisialisasi hashMap pada key ke biner
                 count = hashMap[idHash]
+                //jika masih kosong maka diisi dengan inisialisasi count = 0
                 if (count == null) count = Match(0, linkHashMap[hash.hash]!! - hash.time!!)
+                //count tambah
                 count.updateCount()
+                //mengumpdet jumlah count pada hash atau id surat
                 hashMap[idHash] = count
             }
 
             hashMap.forEach { (hash, countTime) ->
                 if (countTime!!.count > maxCount) {
+                    // max id id user yang di hashing
                     maxId = hash
+                    // jumlah confidence
                     maxCount = countTime.count
+                    // waktu perbedaan
                     maxTime = countTime.time
                 }
             }
             val offset = -maxTime
-
             return AudioMatch(
                 hash2id(
                     maxId
@@ -72,7 +78,7 @@ class SearchHashing {
     }
 
     companion object {
-        fun idHash(id: Int, time: Int): Long {
+        fun idHash(id: Int): Long {
 
             //bitsiw left shift <<
             return ((id shl 16)).toLong()

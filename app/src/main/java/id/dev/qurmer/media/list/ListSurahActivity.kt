@@ -27,6 +27,10 @@ class ListSurahActivity : BaseActivity() {
 
         val type = intent.getIntExtra("type", 0)
 
+        ll_back_player.setOnClickListener {
+            onBackPressed()
+        }
+
         val surahViewModel = ViewModelProviders.of(this).get(SurahViewModel::class.java)
         surahViewModel.allSurah.observe(this, Observer {
 

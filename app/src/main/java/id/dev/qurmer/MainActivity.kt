@@ -24,9 +24,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        val hashViewModel = ViewModelProviders.of(this).get(HashViewModel::class.java)
-
-
+        //val hashViewModel = ViewModelProviders.of(this).get(HashViewModel::class.java)
 
 
         nav_home.setOnNavigationItemSelectedListener {

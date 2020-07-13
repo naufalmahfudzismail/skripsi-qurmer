@@ -354,7 +354,7 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
             if (times == "0,0") {
                 showDialogChallenge(
                     "Waktu Habis",
-                    "Maaf Waktu Tantangan sudah habis",
+                    "Maaf Waktu Tantangan sudah habis, apakah kamu ingin mengulang?",
                     object : DialogChallengeListener {
                         override fun onPositiveClicked(dialog: Dialog) {
                             finish()

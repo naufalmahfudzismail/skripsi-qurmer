@@ -18,7 +18,7 @@ class TimeChangedReceiver : BroadcastReceiver() {
             val viewModel = ViewModelProviders.of(context as FragmentActivity).get(ReminderViewModel::class.java)
             viewModel.allReminder.observe(context, Observer {
                 it.forEach {reminder ->
-                    AlarmHelper.setAlarm(context, reminder.time!!, reminder.repeat!!,  reminder.name!!)
+                    AlarmHelper.setAlarm(context, reminder.time!!, reminder.repeat!!,  reminder.name!!, reminder.id!!.toInt())
                 }
             })
         }

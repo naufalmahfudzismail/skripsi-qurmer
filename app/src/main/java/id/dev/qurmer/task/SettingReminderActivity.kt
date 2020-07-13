@@ -86,22 +86,25 @@ class SettingReminderActivity : BaseActivity() {
         btn_save.setOnClickListener {
             Log.e("HOUR", chooseHour.toString())
             Log.e("MINUTE", chooseMinute.toString())
-            if (chooseDay != 0 && timeInMilliSeconds.toInt() != 0 && edt_desc.text.toString() != null) {
+            if (chooseDay != 0 && timeInMilliSeconds.toInt() != 0 && edt_desc.text!!.trim().isNotEmpty()) {
 
                 val reminder = ReminderTable(
+                    id = System.currentTimeMillis()/10,
                     time = timeInMilliSeconds,
                     repeat = 24 * 60 * 1000 * 60 * 7,
-                    name = edt_desc.text.toString()
+                    name = edt_desc.text.toString(),
+                    day = txt_date.text.toString()
                 )
-                
                 viewModel.insert(reminder)
-                SessionManager.getInstance(this).setDescriptionAlarm(edt_desc.text.toString())
-                SessionManager.getInstance(this).setTimeAlarm(timeInMilliSeconds)
+               /* SessionManager.getInstance(this).setDescriptionAlarm(edt_desc.text.toString())
+                SessionManager.getInstance(this).setTimeAlarm(timeInMilliSeconds)*/
+
                 AlarmHelper.setAlarm(
                     this,
                     timeInMilliSeconds,
                     AlarmManager.INTERVAL_DAY * 7,
-                    edt_desc.text.toString()
+                    edt_desc.text.toString(),
+                    reminder.id!!.toInt()
                 )
                 makeToast("Pengingat telah di buat")
                 onBackPressed()

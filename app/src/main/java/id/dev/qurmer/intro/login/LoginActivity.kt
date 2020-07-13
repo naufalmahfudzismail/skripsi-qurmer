@@ -268,19 +268,25 @@ class LoginActivity : BaseActivity(), LoginView {
     }
 
     override fun startLoading() {
-        viewLoading()
+        runOnUiThread {
+            viewLoading()
+        }
     }
 
     override fun stopLoading() {
-        hideLoading()
+        runOnUiThread {
+            hideLoading()
+        }
     }
 
     override fun onUnAuthorized() {
     }
 
     override fun onError(error: String) {
-        super.onError(error)
-        makeLongToast(error)
+        runOnUiThread {
+            super.onError(error)
+            makeLongToast(error)
+        }
     }
 
     private fun registerGoogle() {
