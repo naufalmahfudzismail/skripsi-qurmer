@@ -40,5 +40,8 @@ class IntroPresenter(val context: Context, private val view: IntroView) : BasePr
     } catch (e: Throwable) {
         view.onError(e.message.toString())
         view.stopLoading()
+    }catch (e: Exception) {
+        view.onError(e.message.toString())
+        view.stopLoading()
     }
 }

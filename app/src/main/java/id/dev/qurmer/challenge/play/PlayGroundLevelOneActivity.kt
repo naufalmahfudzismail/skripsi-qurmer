@@ -155,6 +155,7 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
                     if (answerAdapter.getSize() == size) {
                         val finalResult = scrambleCheck(original, answerAdapter.ayats)
                         if (finalResult) {
+                            unregisterReceiver(br)
                             presenter.afterChallenge(
                                 getTokenWithBearer(),
                                 data.id.toString(),
@@ -217,27 +218,32 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
         })
     }
 
+    private fun pickUpAyat(ayats : List<AyatTable>){
+        original.addAll(ayats)
+        val tempAyat = original[original.lastIndex]
+        original.remove(tempAyat)
+
+        shuffeled.addAll(original.shuffled())
+        original.forEachIndexed { index, ayat ->
+            if (ayat.id == shuffeled[0].id) {
+                val answerIndex = index + 1
+                answerAyat = ayats[answerIndex]
+            }
+        }
+
+        answerAdapter.addAyat(shuffeled[0])
+        shuffeled.removeAt(0)
+        shuffeled.add(tempAyat)
+
+    }
+
 
     private fun nextAyatGame(surahId: Int) {
         txt_info_soal.text = "Pilihan Ayat acak, Pilih Ayat Selanjut nya"
 
         ayatViewModel.getAyat(surahId).observe(this, Observer { ayats ->
 
-            original.addAll(ayats)
-            val tempAyat = original[original.lastIndex]
-            original.remove(tempAyat)
-
-            shuffeled.addAll(original.shuffled())
-            original.forEachIndexed { index, ayat ->
-                if (ayat.id == shuffeled[0].id) {
-                    val answerIndex = index + 1
-                    answerAyat = ayats[answerIndex]
-                }
-            }
-
-            answerAdapter.addAyat(shuffeled[0])
-            shuffeled.removeAt(0)
-            shuffeled.add(tempAyat)
+            pickUpAyat(ayats)
 
             ayatAdapter = AyatChallengeAdapter(
                 this, shuffeled.shuffled() as MutableList<AyatTable>
@@ -264,9 +270,7 @@ class PlayGroundLevelOneActivity : BaseActivity(), ChallengeView {
                                 numberOfTry++
 
                                 txt_number_of_try.text = numberOfTry.toString()
-
-                                ayatAdapter.restore(original.shuffled())
-                                answerAdapter.removeLast()
+                                ayatAdapter.restore(shuffeled.shuffled())
 
                                 registerReceiver(
                                     br,

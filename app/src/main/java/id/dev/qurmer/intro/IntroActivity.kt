@@ -160,7 +160,13 @@ class IntroActivity : BaseActivity(), IntroView {
 
                 })
                 /*try {
-                    repeat(13) {
+                    repeat(40) {
+                        val dir =
+                            Environment.getExternalStorageDirectory().absolutePath + "/train/train-${it + 1}.mp3"
+                        OperationHash.insert(hashViewModel, dir, 1)
+                        Log.e("HAshing", "an-nas")
+                    }
+                    *//*repeat(13) {
                         val dir =
                             Environment.getExternalStorageDirectory().absolutePath + "/114/114-${it + 1}.mp3"
                         OperationHash.insert(hashViewModel, dir, 1)
@@ -177,7 +183,7 @@ class IntroActivity : BaseActivity(), IntroView {
                             Environment.getExternalStorageDirectory().absolutePath + "/112/112-${it + 1}.mp3"
                         OperationHash.insert(hashViewModel, dir, 3)
                         Log.e("HAshing", "al-ikhlas")
-                    }
+                    }*//*
                 }catch (e : Throwable){
                     Log.e("ERROR", e.message.toString())
                 }*/

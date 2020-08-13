@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object APIRepository {
 
-    const val BASE_URL = "http://qurmer.skripsi-tik.xyz/api/"
+    const val BASE_URL = "http://qurmar.skripsijtik.net/api/"
     const val GOOGLE_MAP_URL = "https://maps.googleapis.com/maps/api/"
 
     fun makeRetrofitService(): APIService {

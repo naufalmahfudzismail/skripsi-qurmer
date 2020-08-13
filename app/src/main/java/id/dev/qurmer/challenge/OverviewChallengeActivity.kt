@@ -25,6 +25,10 @@ class OverviewChallengeActivity : BaseActivity() {
         txt_challenge_title.text = challenge.level?.name.toString()
         val totalScore = challenge.score!!.toInt() + challenge.level?.bonusScore!!.toInt()
 
+        back_overview.setOnClickListener {
+            onBackPressed()
+        }
+
         txt_point_info.text = "Point $totalScore XP"
         txt_time_info.text = "Waktu : ${challenge.time} Menit"
 

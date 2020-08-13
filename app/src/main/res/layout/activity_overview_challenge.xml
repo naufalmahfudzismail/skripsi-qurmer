@@ -8,6 +8,7 @@
     tools:context=".challenge.OverviewChallengeActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/back_overview"
         android:background="?selectableItemBackground"
         android:src="@drawable/ic_arrow_left_black_48dp"
         android:layout_marginStart="25dp"

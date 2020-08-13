@@ -50,7 +50,7 @@ class MemorizeActivity : BaseActivity() {
         surahViewModel = ViewModelProviders.of(this).get(SurahViewModel::class.java)
 
         outputFile =
-            Environment.getExternalStorageDirectory().absolutePath + "/record${surah.surahAudioName}-${dateNow}.mp3"
+            Environment.getExternalStorageDirectory().absolutePath + "/train-${surah.surahAudioName}-${dateNow}.mp3"
 
 
         //compare()
@@ -227,10 +227,16 @@ class MemorizeActivity : BaseActivity() {
                             "Tidak Sesuai"
                         }
 
+                        val relConfidence = if (search.relativeConfidence!!.toFloat() > 100f) {
+                            100
+                        } else {
+                            search.relativeConfidence!!.toFloat().toInt()
+                        }
+
                         showResultDialog(
                             audio?.surahName.toString(),
                             search.confidence.toString(),
-                            search.relativeConfidence.toString(),
+                            "$relConfidence %",
                             succes
                         )
                     } else {
